@@ -448,7 +448,7 @@
 		    },
 		    getListActualDom() {
 		    	if (this.listContainerDom) {
-		    		return this.listContainerDom.children
+		    		return Array.prototype.slice.call(this.listContainerDom.children, 0)
 		    	} else {
 		    		return []
 		    	}
