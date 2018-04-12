@@ -1,11 +1,11 @@
-# tscroll
+# TScroll
 
-> TScroll.vue Vue组件
+> TScroll.vue 一个Vue组件
 ``` bash
 1. 用来解决移动端列表的滚动
 2. 使用姿势较为统一
-3. 列表数据始终保持5屏左右的列表数据,所以当你滚动1w以上(其实随便多少条数据)的数据,父容器中的数据始终都是5屏左右的数据
-4. 基于alloytouch.js和transform.js编写的一个基础组件
+3. 列表数据始终保持5屏左右的列表数据,所以当你滚动1w以上(其实随便多少条数据)的数据,父容器中的数据始终都是小于5屏左右的数据
+4. 基于alloytouch.js和transform.js编写的一个Vue基础组件
 ```
 
 ## TScroll.vue 使用姿势
@@ -109,7 +109,7 @@ getAllData 方法: 获取所有的数据,就是从服务器每次请求的数据
     无参数
     返回值: Array(对象数组或者空数组)
 
-getListActualDom 方法: 获取列表容器中实际的dom元素(因为父容器始终会保持5屏左右的数据)
+getListActualDom 方法: 获取列表容器中实际的dom元素(因为父容器始终会保持小于5屏左右的数据)
     无参数
     返回值: Array(dom数组或者空数组)
 ```
