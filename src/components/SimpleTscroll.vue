@@ -118,13 +118,14 @@
 	}
 	.simple-tscroll {
 		background: #fff;
-		z-index: 3;
+		z-index: 99;
 		width: 100%;
 		height: 100%;
-		position: absolute;
+		position: fixed;
 		left: 0;
 		top: 0;
 		right: 0;
+		overflow: hidden;
 	}
 
 	.simple-tscroll .updown {
@@ -142,7 +143,7 @@
 	    position: absolute;
 	    z-index: 2;
 	    top: 0;
-	    left: 0;
+	    /*left: 0;*/
 	    width: 100%;
 	    height: 45px;
 	    line-height: 45px;
@@ -158,8 +159,8 @@
 	    position: absolute;
 	    z-index: 2;
 	    bottom: 0;
-	    left: 0;
-	    right: 0;
+	    /*left: 0;*/
+	    /*right: 0;*/
 	    overflow: hidden;
 	    width: 100%;
 	    height: 48px;
@@ -171,7 +172,7 @@
 
 	.simple-tscroll .wrapper {
 	    position: absolute;
-	    z-index: 1;
+	    z-index: 9999;
 	    top: 45px;
 	    bottom: 48px;
 	    left: 0;
