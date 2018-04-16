@@ -172,7 +172,8 @@
 	                this.allData[i + allDataLen].dom = arr[i]
 	            }
 	            if (this.pullUpDom) { // 设置上拉dom 的translateY
-	            	this.currentHeight += parseInt(window.getComputedStyle(this.pullUpDom, null).height)
+	            	// this.currentHeight += parseInt(window.getComputedStyle(this.pullUpDom, null).height)
+	            	this.currentHeight += this.getListLastDomHeight() // 这里需要把列表容器中的最后一个元素的高度赋给上拉dom
 	                this.setTranslateY(this.pullUpDom, this.currentHeight)
 	            }
 	            if (this.at) { // 有at实例才会去更新min属性
@@ -255,8 +256,6 @@
 		    	let min = window.innerHeight - this.scroll.excrMin - this.currentHeight
 		    	if (this.pullUpDom) { // 有上拉dom则减去 上拉dom的高度
 		    		min = min - parseInt(window.getComputedStyle(this.pullUpDom, null).height)
-		    	} else { // 减去列表容器中最后一个元素的高度,因为容器的第一个元素的translateY从0开始,第二个元素的translateY是第一个元素的高度,以此类推...
-		    		min = min - this.getListLastDomHeight()
 		    	}
 		    	if (min > 0) { // 说明当前列表内容不足以撑起整个容器, so 需要边界处理(隐藏滚动条)
 		    		min = 0

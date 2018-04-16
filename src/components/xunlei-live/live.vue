@@ -734,8 +734,8 @@
 		methods: {
 			handlerPullUpLoading() {
 				mockData(1500).then((ret) => {
-					// console.log(ret)
-					// this.pullUpData = ret
+					console.log(ret)
+					this.pullUpData = ret
 				})
 			}
 		},
