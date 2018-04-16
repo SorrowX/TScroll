@@ -1,43 +1,54 @@
 <template>
 	<transition name="xunlei-fade">
-		<div class="xunlei-main">
-			<div class="wrapper">  
-			    <div class="scroller">
-			    	<div ref="tscroll-list-container" class="show-item">
-			    		<div class="openurl">
+		<div class="xunlei-main">   
+			<t-scroll 
+			    :pullUpData="pullUpData"
+			    :renderDataList.sync="renderDataList"
+			    ref="tScrollComp"
+			    @pullUpLoading="handlerPullUpLoading"
+			>
+				<template>
+					<div ref="tscroll-list-container" class="show-item">
+			    		<div 
+			    		    class="openurl"
+						    v-for="(item, index) in renderDataList"
+			    		    :key="index"
+			    		>
 			    			<div class="player-info">
 			    				<div class="player">
 			    					<div class="avatar">
-			    						<img src="http://img2.user.kanimg.com/usrimg/664779935/100x100?t=1523850717" alt="CK🎤雨汐想要陪伴">
-			    						<P>CK🎤雨汐想要陪伴</P>
+			    						<img :src="item.data.image" alt="item.data.nickname">
 			    					</div>
+		    						<P>{{ item.data.nickname }}</P>
 			    				</div>
 			    				<div class="see">
 			    					<p>
-			    						<span>6782</span>
+			    						<span>{{ item.data.onlineNum }}</span>
 			    						人 在看
 			    					</p>
 			    				</div>
 			    			</div>
 			    			<div class="entry-wp">
 			    				<div class="vedio-pic">
-			    					<img src="http://img2.user.kanimg.com/usrimg/664779935/300x300?t=1523850717">
+			    					<img :src="item.data.image">
 			    				</div>
 			    				<p class="tip">直播</p>
 			    			</div>
-			    			<div class="des-show">
-			    				<p>河南雨汐求家人</p>
+			    			<div class="des-show" v-show="item.data.title">
+			    				<p>{{ item.data.title }}</p>
 			    			</div>
 			    		</div>
 			    	</div>
-			    	<div ref="tscroll-pull-up">loading</div>
-			    </div>
-			</div>
+			    	<div ref="tscroll-pull-up" class="loading">loading</div>
+				</template>
+			</t-scroll>
 	    </div>
 	</transition>
 </template>
 
 <script>
+    import TScroll from '@/base-components/TScroll.vue'
+
     let allData = {
     	"result": 0,
     	"message": "ok",
@@ -713,9 +724,25 @@
     }
 
 	export default {
+		components: { TScroll },
+		data() {
+			return {
+				pullUpData: [],
+				renderDataList: []
+			}
+		},
+		methods: {
+			handlerPullUpLoading() {
+				mockData(1500).then((ret) => {
+					// console.log(ret)
+					// this.pullUpData = ret
+				})
+			}
+		},
         mounted() {
         	mockData(100).then((ret) => {
         		console.log(ret)
+        		this.pullUpData = ret
         	})
         }
 	}
@@ -737,18 +764,92 @@
 		top: 0;
 		left: 0;
 		right: 0;
+		background-color: #efefef;
+	}
+
+	.xunlei-main .wrapper { }
+
+	.xunlei-main .scroller {  }
+
+	.openurl {
 		background-color: #fff;
+		position: absolute;
+		width: 100%;
 	}
 
-	.xunlei-main .wrapper {
-
-	}
-
-	.xunlei-main .scroller {
-		
+	.openurl:last-child {
+		/*background: #f00;*/
+		/*height: 200px;*/
 	}
 
 	.openurl .player-info {
-		
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: space-between;
+		align-items: center;
+		height: 0.533333rem;
+		padding: 0.12rem 0.133333rem;
+	}
+	.openurl .player {
+        display: flex;
+        flex: row nowrap;
+        align-items: center;
+	}
+	.openurl .avatar img {
+		width: 0.533333rem;
+		height: 0.533333rem;
+		border-radius: 50%;
+	}
+	.openurl .player p {
+        padding-left: 0.133333rem;
+        color: #2d2d2d;
+        font-size: 14px;
+	}
+	.see p span {
+        color: red;
+	}
+
+	.entry-wp {
+        position: relative;
+	}
+	.entry-wp .vedio-pic{
+		width: 100%;
+		height: 4.266667rem;
+
+	}
+	.entry-wp img {
+		width: 100%;
+		height: 100%;
+	}
+	.entry-wp .tip {
+		position: absolute;
+		left: 0;
+		top: 0.12rem;
+		height: 0.266667rem;
+		padding: 0 0.133333rem;
+		background-color: #000;
+		color: #fff;
+	}
+
+	.openurl .des-show {
+		height: 0.4rem;
+		display: flex;
+		flex: row nowrap;
+		align-items: center;
+		padding: 0 0.133333rem;
+	}
+	.openurl .des-show p {
+		font-size: 15px;
+	}
+
+	.xunlei-main .loading {
+		height: 0.533333rem;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #FFFAF0;
+		position: absolute;
 	}
 </style>
