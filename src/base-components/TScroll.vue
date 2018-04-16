@@ -53,7 +53,7 @@
 			default: function() {
 				return {
 					excrMin: 0, // 多余的高度(滚动容器如果和屏幕高度一样,则该值为0,如果页面如果有头部和底部,需要减掉头部和底部的高度,则该值为头部的高度+底部的高度)
-					maxSpeed: 2, // 滚动最大速度
+					maxSpeed: 1.4, // 滚动最大速度
 					sensitivity: 1, // 滚动的灵敏度
 					pullDownDistance: 0, // 下拉距离(超过指定距离才触发下拉事件)
 					preventDefault: true // 是否阻止默认事件

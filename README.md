@@ -117,5 +117,8 @@ getListActualDom 方法: 获取列表容器中实际的dom元素(因为父容器
 ## demo
     
 ``` bash
-    目前只有一个首页,和一个滚动页面,后续会增加更多demo
+    4月10日:
+        新增首页和SimpleTscroll页面
+    4月16日:
+        新增迅雷直播首页
 ```
