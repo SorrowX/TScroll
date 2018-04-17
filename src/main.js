@@ -11,9 +11,8 @@ Vue.use(VueLazyload)
 
 // or with options
 Vue.use(VueLazyload, {
-	error: require('./common/images/common/loading.gif'),
-	loading: require('./common/images/common/loading.gif'),
-	attempt: 1
+	error: '@/common/images/common/loading.gif',
+	loading: '@/common/images/common/loading.gif'
 })
 
 /* eslint-disable no-new */

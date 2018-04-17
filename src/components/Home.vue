@@ -8,23 +8,41 @@
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
                   <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
               </ul>
           </template>
@@ -40,7 +58,7 @@
         components: { TScroll },
         data () {
             return {
-                simpleScroll: ''
+                simpleScroll: '',
             }
         },
         mounted() {

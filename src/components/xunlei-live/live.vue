@@ -30,7 +30,7 @@
 			    			</div>
 			    			<div class="entry-wp">
 			    				<div class="vedio-pic">
-			    					<img v-lazy="item.data.image">
+			    					<img :src="item.data.image">
 			    				</div>
 			    				<p class="tip">直播</p>
 			    			</div>
@@ -706,12 +706,12 @@
     	let ret = [], self = this
         for (let i = 0, len = 20; i < len; i++) {
         	let index = Math.floor(Math.random() * allData.data.length)
-        	let d = allData.data[index]
+        	let obj = allData.data[index]
 			ret.push({
-				image: d.userinfo.avatar,
-				nickname: d.userinfo.nickname,
-				onlineNum: d.onlinenum,
-				title: d.title,
+				image: obj.userinfo.avatar,
+				nickname: obj.userinfo.nickname,
+				onlineNum: obj.onlinenum,
+				title: obj.title,
                 id: key ++
 			})
         }
@@ -726,6 +726,7 @@
     	})
     }
 
+    // 以上都是前戏,下面才是主角,主角就该如此简单 tScrollOptions配置可省略哦
 	export default {
 		components: { TScroll },
 		data() {
@@ -738,7 +739,7 @@
 						fade: false
 					},
 					scrollOption: {
-						maxSpeed: 1.5,
+						maxSpeed: 1.4,
 						sensitivity: 1,
 						pullDownDistance: 0,
 						preventDefault: false
@@ -757,6 +758,8 @@
         	mockData(100).then((ret) => {
         		this.pullUpData = ret
         	})
+
+            console.log('vm.$Lazyload', this.$Lazyload)
         }
 	}
 </script>
