@@ -7,12 +7,13 @@ import VueLazyload from 'vue-lazyload'
 
 Vue.config.productionTip = false
 
-Vue.use(VueLazyload)
-
-// or with options
 Vue.use(VueLazyload, {
-	error: '@/common/images/common/loading.gif',
-	loading: '@/common/images/common/loading.gif'
+    preLoad: 1.3,
+    error: require('./assets/logo.png'),
+    loading: require('@/common/images/common/loading.jpg'),
+    attempt: 1,
+    // the default is ['scroll', 'wheel', 'mousewheel', 'resize', 'animationend', 'transitionend']
+    // listenEvents: [ 'scroll' ]
 })
 
 /* eslint-disable no-new */

@@ -30,7 +30,7 @@
 			    			</div>
 			    			<div class="entry-wp">
 			    				<div class="vedio-pic">
-			    					<img :src="item.data.image">
+			    					<img v-lazy="item.data.image">
 			    				</div>
 			    				<p class="tip">直播</p>
 			    			</div>

@@ -353,27 +353,27 @@
     	            this.touchDom.___createdBar__ = true
     	        }
     	    },
-    	    getBarInfo(y) {
+    	    getBarInfo(v) {
     	        let totalHeight = this.currentHeight
     	        this.barHeight = this.barHeight || this.barDom.offsetHeight
     	        let scrollBarScaleY = this.barHeight / totalHeight
     	        let btnDomHeight = Math.round(this.barHeight * scrollBarScaleY)
-    	        if (y >= 0) { // 下拉时
-    	        	scrollBarScaleY = this.barHeight / (totalHeight + y * 25)
+    	        if (v >= 0) { // 下拉时
+    	        	scrollBarScaleY = this.barHeight / (totalHeight + v * 25)
     	        	btnDomHeight = Math.round(this.barHeight * scrollBarScaleY)
     	        }
     	        return {
     	            btnDomHeight: (btnDomHeight >= 12 ? btnDomHeight : 12),
-    	            scrollY: Math.round(scrollBarScaleY * y)
+    	            scrollY: Math.round(scrollBarScaleY * v)
     	        }
     	    },
-    	    scrollBar(y) {
+    	    scrollBar(v) {
     	    	if (this._initBar) {
 	    			if (!this.scrollBarOption.show) { return }
 	    			if (this.scrollBarOption.fade && this.barDom.style.display === 'none') {
 	    				this.barDom.style.display = 'block'
 	    			}
-	    			let { btnDomHeight, scrollY } = this.getBarInfo(y)
+	    			let { btnDomHeight, scrollY } = this.getBarInfo(v)
 	    		    if (this.preBtnDomHeight !== btnDomHeight) {
 	    		    	this.preBtnDomHeight = btnDomHeight
 	    		    	this.btnDom.style.height = btnDomHeight + 'px'

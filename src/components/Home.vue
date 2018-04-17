@@ -70,7 +70,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .home .wrapper {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         z-index: 2;
