@@ -4,6 +4,7 @@
 			<t-scroll 
 			    :pullUpData="pullUpData"
 			    :renderDataList.sync="renderDataList"
+			    v-bind="tScrollOptions"
 			    @pullUpLoading="handlerPullUpLoading"
 			>
 				<template>
@@ -29,7 +30,7 @@
 			    			</div>
 			    			<div class="entry-wp">
 			    				<div class="vedio-pic">
-			    					<img :src="item.data.image">
+			    					<img v-lazy="item.data.image">
 			    				</div>
 			    				<p class="tip">直播</p>
 			    			</div>
@@ -732,11 +733,17 @@
 				pullUpData: [],
 				renderDataList: [],
                 tScrollOptions: {
-                    scroll: {
-                        maxSpeed: 1,
-                        preventDefault: false
-                    }
-                },
+					scrollBarOption: {
+						show: true,
+						fade: false
+					},
+					scrollOption: {
+						maxSpeed: 1.5,
+						sensitivity: 1,
+						pullDownDistance: 0,
+						preventDefault: false
+					}
+				}
 			}
 		},
 		methods: {

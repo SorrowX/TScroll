@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import SimpleTscroll from '@/components/SimpleTscroll'
+import SimpleTscroll from '@/components/simple-tscroll/SimpleTscroll'
 import XunLeiLive from '@/components/xunlei-live/live'
 
 Vue.use(Router)

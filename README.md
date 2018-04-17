@@ -45,11 +45,11 @@ data() {
 		pullDownData: [], // 每次从服务器下拉获取的新数据
 		renderDataList: [], // 用于渲染列表的数据
 		tScrollOptions: {
-			scrollbar: { // 控制滚动条相关属性
+			scrollBarOption: { // 控制滚动条相关属性
 				show: true, // 是否开启滚动条
 				fade: false // true 表示当滚动停止的时候滚动条是否需要渐隐
 			},
-			scroll: {
+			scrollOption: {
 				excrMin: 45 + 48, // 多余的高度(滚动容器如果和屏幕高度一样,则该值为0,如果页面如果有头部和底部,需要减掉头部和底部的高度,则该值为头部的高度+底部的高度)
 				maxSpeed: 2, // 滚动最大速度
 				sensitivity: 1, // 滚动的灵敏度
@@ -112,6 +112,15 @@ getAllData 方法: 获取所有的数据,就是从服务器每次请求的数据
 getListActualDom 方法: 获取列表容器中实际的dom元素(因为父容器始终会保持小于5屏左右的数据)
     无参数
     返回值: Array(dom数组或者空数组)
+```
+
+## TScroll.vue 更新日志
+    
+``` bash
+    4月17日:
+       1.修复 少传excrMin参数,滑动列表时,内容会被清空的的bug (大部分参数都是可选的,所以没传了话,应该有默认值)
+       2.修复 下拉时滚动条高度不跟着变化的bug
+       3.修复 有simpleScroll属性就是简单滚动的情况下,列表最后一个dom被隐藏的bug
 ```
 
 ## demo

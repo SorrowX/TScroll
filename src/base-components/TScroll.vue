@@ -38,17 +38,17 @@
 			}
 		},
 		// 控制滚动条相关属性
-		scrollbar: {
+		scrollBarOption: {
 			type: Object,
 			default: function() {
 				return {
 					show: true,  // 是否开启滚动条
-					fade: true  // true 表示当滚动停止的时候滚动条是否需要渐隐
+					fade: false  // true 表示当滚动停止的时候滚动条是否需要渐隐
 				}
 			}
 		},
-		// 控制alloytouch相关属性
-		scroll: {
+		// 控制alloytouch相关属性 
+		scrollOption: {
 			type: Object,
 			default: function() {
 				return {
@@ -137,6 +137,7 @@
 			// 初始化列表dom,实例化at实例,初始化滚动条
 			init() {
 				// 初始化
+				this.initOptions()
 				this.initList()
 		    	this.initAlloyTouch()
 		    	this.initBar()
@@ -144,6 +145,24 @@
 		        this.loading = false
                 this.preAllDataLength = this.allData.length
                 this.recoveryAtMax()
+			},
+			// 初始化配置选项
+			initOptions() {
+				if (!this._initOptions) {
+					this._initOptions = true
+					let scrollOption = props.scrollOption.default()
+					for (let key in scrollOption) {
+						if (!this.scrollOption.hasOwnProperty(key)) {
+	                        this.$set(this.scrollOption, key, scrollOption[key])
+						}
+					}
+					let scrollBarOption = props.scrollBarOption.default()
+					for (let k in scrollBarOption) {
+						if (!this.scrollBarOption.hasOwnProperty(k)) {
+	                        this.$set(this.scrollBarOption, k, scrollBarOption[k])
+						}
+					}
+				}
 			},
 			// 初始化列表dom,设置相应dom的translateY属性
 			initList() {
@@ -171,9 +190,8 @@
 	                this.allData[i + allDataLen].translateY = arr[i].__translateY__ = this.currentHeight
 	                this.allData[i + allDataLen].dom = arr[i]
 	            }
+	            this.currentHeight += this.getListLastDomHeight() // 需要把列表容器中的最后一个元素的高度加给currentHeight
 	            if (this.pullUpDom) { // 设置上拉dom 的translateY
-	            	// this.currentHeight += parseInt(window.getComputedStyle(this.pullUpDom, null).height)
-	            	this.currentHeight += this.getListLastDomHeight() // 这里需要把列表容器中的最后一个元素的高度赋给上拉dom
 	                this.setTranslateY(this.pullUpDom, this.currentHeight)
 	            }
 	            if (this.at) { // 有at实例才会去更新min属性
@@ -202,18 +220,18 @@
 		    	let self = this
 		    	if (this.at) return
 		    	Transform(this.targetDom, true)
-		    	this.vpHeight = window.innerHeight - this.scroll.excrMin
+		    	this.vpHeight = window.innerHeight - this.scrollOption.excrMin
 		    	this.debounceChange = this.change(100)
 		        this.at = new AlloyTouch({
 		            touch: self.touchDom, //反馈触摸的dom
 		            vertical: true, //不必需, 默认是true代表监听竖直方向touch
 		            target: self.targetDom, //运动的对象
 		            property: "translateY", //被滚动的属性
-		            maxSpeed: self.scroll.maxSpeed,
+		            maxSpeed: self.scrollOption.maxSpeed,
 		            min: self.getMin(), //不必需, 滚动属性的最小值
 		            max: 0, //不必需, 滚动属性的最大值
-		            preventDefault: self.scroll.preventDefault,
-		            sensitivity: self.scroll.sensitivity,
+		            preventDefault: self.scrollOption.preventDefault,
+		            sensitivity: self.scrollOption.sensitivity,
 		            touchStart: function(evt, property) {
 		            	// console.log('touchStart', evt, property)
 		            	self.$emit("touchStart", evt, property)
@@ -253,13 +271,13 @@
 		    	}
 		    },
 		    getMin() {
-		    	let min = window.innerHeight - this.scroll.excrMin - this.currentHeight
+		    	let min = window.innerHeight - this.scrollOption.excrMin - this.currentHeight
 		    	if (this.pullUpDom) { // 有上拉dom则减去 上拉dom的高度
 		    		min = min - parseInt(window.getComputedStyle(this.pullUpDom, null).height)
 		    	}
 		    	if (min > 0) { // 说明当前列表内容不足以撑起整个容器, so 需要边界处理(隐藏滚动条)
 		    		min = 0
-		    		this.scrollbar.show = false
+		    		this.scrollBarOption.show = false
 		    	}
 		    	return min
 		    },
@@ -289,8 +307,8 @@
 		                    this.pullUpLoading()
 		                }
 	                	if (
-	                		this.scroll.pullDownDistance !== 0 && 
-	                		v >= this.scroll.pullDownDistance && 
+	                		this.scrollOption.pullDownDistance !== 0 && 
+	                		v >= this.scrollOption.pullDownDistance && 
 	                		!this.loading
 	                	) {
 		                	this.pullDownLoading()
@@ -303,7 +321,7 @@
 		    	if (!this._initBar) {
 		    		this._initBar = true
 					this.createBar()
-			        this.showBar(this.scrollbar.show)
+			        this.showBar(this.scrollBarOption.show)
 		    	}
 		    },
     	    createBar() {
@@ -318,7 +336,7 @@
     	                top: 2px;
     	                right: 2px;
     	                bottom: 2px;
-    	                width: 6px;
+    	                width: 5px;
     	                overflow: hidden;
     	                border-radius: 2px;
     	                -webkit-transform: scaleX(.5);
@@ -330,8 +348,6 @@
     	                left: 0;
     	                right: 0;
     	                border-radius: 2px;`
-    	            bar.setAttribute('id', 'tscroll-bar')
-    	            btn.setAttribute('id', 'tscroll-btn')
     	            bar.appendChild(btn)
     	            this.touchDom.appendChild(bar)
     	            this.touchDom.___createdBar__ = true
@@ -342,15 +358,19 @@
     	        this.barHeight = this.barHeight || this.barDom.offsetHeight
     	        let scrollBarScaleY = this.barHeight / totalHeight
     	        let btnDomHeight = Math.round(this.barHeight * scrollBarScaleY)
+    	        if (y >= 0) { // 下拉时
+    	        	scrollBarScaleY = this.barHeight / (totalHeight + y * 25)
+    	        	btnDomHeight = Math.round(this.barHeight * scrollBarScaleY)
+    	        }
     	        return {
     	            btnDomHeight: (btnDomHeight >= 12 ? btnDomHeight : 12),
-    	            scrollY: Math.abs(Math.round(scrollBarScaleY * y))
+    	            scrollY: Math.round(scrollBarScaleY * y)
     	        }
     	    },
     	    scrollBar(y) {
     	    	if (this._initBar) {
-	    			if (!this.scrollbar.show) { return }
-	    			if (this.scrollbar.fade && this.barDom.style.display === 'none') {
+	    			if (!this.scrollBarOption.show) { return }
+	    			if (this.scrollBarOption.fade && this.barDom.style.display === 'none') {
 	    				this.barDom.style.display = 'block'
 	    			}
 	    			let { btnDomHeight, scrollY } = this.getBarInfo(y)
@@ -358,13 +378,15 @@
 	    		    	this.preBtnDomHeight = btnDomHeight
 	    		    	this.btnDom.style.height = btnDomHeight + 'px'
 	    		    }
-	    		    this.setTranslateY(this.btnDom, scrollY)
+	    		    if (scrollY <= 0 && !isNaN(scrollY)) {
+		    		    this.setTranslateY(this.btnDom, Math.abs(scrollY))
+	    		    }
     	    	}
     	    },
     	    scrollBarAnimationEnd(value) {
     	    	if (this._initBar) {
     	    		this.scrollBar(value)
-	    	    	this.showBar(!this.scrollbar.fade)
+	    	    	this.showBar(!this.scrollBarOption.fade)
     	    	}
     	    },
     	    showBar(bool) {
@@ -386,7 +408,7 @@
 		    	if (this._pdlg) {
 		    		this.$emit('pullDownEnd')
 		    		this._pdlg = false
-		    		this.at.max = this.scroll.pullDownDistance
+		    		this.at.max = this.scrollOption.pullDownDistance
 		    		this.at.to(this.at.max)
 		    	}
 		    },
