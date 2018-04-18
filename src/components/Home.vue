@@ -70,14 +70,16 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .home .wrapper {
+    .home {
         position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 2;
+        z-index: 10;
         width: 100%;
         height: 100%;
+        left: 0;
+        top: 0;
+        right: 0;
         overflow: hidden;
+        background-color: #eee;
     }
 
     .home .tscroll-list-container li {

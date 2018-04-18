@@ -53,13 +53,13 @@
 					</div>
 					<div ref="tscroll-pull-up" class="pull-up">
 						<img src="../../common/images/common/loading.gif">
-						<span>  正在加载中...</span>
+						<span> 正在加载中...</span>
 					</div>
 				</template>
 			</t-scroll>
 
 			<div class="footer">
-				小葫芦 底部
+				有料短视频 底部
 			</div>
 	    </div>
 	</transition>
@@ -1958,7 +1958,7 @@
         align-items: center;
         flex: none;
         height: 0.533333rem;
-        font-size: 16px;
+        font-size: 18px;
         z-index: 10;
         background-color: #fff;
 	}
@@ -1972,7 +1972,7 @@
         align-items: center;
 		height: 0.533333rem;
         flex: none;
-        font-size: 16px;
+        font-size: 18px;
         z-index: 10;
         background-color: #fff;
 	}
@@ -1995,12 +1995,12 @@
 	.list-item .list-item-left {
 		position: relative;
         padding-right: 0.006667rem;
-        padding-bottom: 0.006667rem;
+        padding-bottom: 0.013333rem;
 	}
 	.list-item .list-item-right {
 		position: relative;
 		padding-left: 0.006667rem;
-        padding-bottom: 0.006667rem;
+        padding-bottom: 0.013333rem;
 	}
 	.youliao-main .left-img-content {
         flex: 1;
