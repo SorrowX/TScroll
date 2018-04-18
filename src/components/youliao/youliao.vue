@@ -30,6 +30,7 @@
 			    :pullUpData="pullUpData"
 			    v-bind="tScrollOptions"
 			    :renderDataList.sync="renderDataList"
+			    @pullUpLoading="handlerPullUpLoading"
 			>
 				<template>
 					<div ref="tscroll-list-container" class="list">
@@ -1875,7 +1876,7 @@
 
     function getRandomData() {
     	let ret = [], self = this
-        for (let i = 0, len = 5; i < len; i++) {
+        for (let i = 0, len = 20; i < len; i++) {
         	let index = Math.floor(Math.random() * allData.length)
         	let leftData = allData.card_list[index]
         	index = Math.floor(Math.random() * allData.length)
@@ -1884,6 +1885,7 @@
         }
         return ret
     }
+    
 
     function mockData(ms) {
     	return new Promise((resolve, reject) => {
@@ -1912,6 +1914,13 @@
 						preventDefault: false
 					}
 				}
+			}
+		},
+		methods: {
+			handlerPullUpLoading() {
+				mockData(1500).then((ret) => {
+					this.pullUpData = ret
+				})
 			}
 		},
 		mounted() {
