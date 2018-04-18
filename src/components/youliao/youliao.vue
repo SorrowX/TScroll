@@ -6,35 +6,9 @@
 				<span>推荐</span>
 				<span>最新</span>
 			</div>
-			<div class="wrapper" ref="wrapper">
+			<!-- <div class="wrapper" ref="wrapper">
 			    <div class="scroller" ref="scroller">
 			    	<div ref="tscroll-list-container" class="list">
-			    		<div class="list-item">
-			    			<div class="list-item-left">
-			    				<div class="left-img-content">
-			    					<img src="http://sl.image.7niu.n0808.com/vf_96cb4a52b8f59653a7020d35abff8305e1a3527e.jpg">
-			    				</div>
-			    			</div>
-			    			<div class="list-item-right">
-			    				<div class="right-img-content">
-			    					<img src="http://sl.image.7niu.n0808.com/vf_1fb7da8cfb38e5aa197161003f3fcade20a36bf3.jpg">
-			    				</div>
-			    			</div>
-			    		</div>
-			    		
-			    		<div class="list-item">
-			    			<div class="list-item-left">
-			    				<div class="left-img-content">
-			    					<img src="http://sl.image.7niu.n0808.com/vf_96cb4a52b8f59653a7020d35abff8305e1a3527e.jpg">
-			    				</div>
-			    			</div>
-			    			<div class="list-item-right">
-			    				<div class="right-img-content">
-			    					<img src="http://sl.image.7niu.n0808.com/vf_1fb7da8cfb38e5aa197161003f3fcade20a36bf3.jpg">
-			    				</div>
-			    			</div>
-			    		</div>
-
 			    		<div class="list-item">
 			    			<div class="list-item-left">
 			    				<div class="left-img-content">
@@ -50,9 +24,9 @@
 			    	</div>
 			    	<div ref="tscroll-pull-up">加载更多</div>
 			    </div>
-			</div>
+			</div> -->
 
-			<!-- <t-scroll 
+			<t-scroll 
 			    :pullUpData="pullUpData"
 			    v-bind="tScrollOptions"
 			    :renderDataList.sync="renderDataList"
@@ -76,12 +50,15 @@
 							</div>
 						</div>
 					</div>
-					<div ref="tscroll-pull-up">加载更多</div>
+					<div ref="tscroll-pull-up" class="pull-up">
+						<img src="../../common/images/common/loading.gif">
+						<span>  正在加载中...</span>
+					</div>
 				</template>
-			</t-scroll> -->
+			</t-scroll>
 
 			<div class="footer">
-				有料短视频底部
+				小葫芦 底部
 			</div>
 	    </div>
 	</transition>
@@ -1898,7 +1875,7 @@
 
     function getRandomData() {
     	let ret = [], self = this
-        for (let i = 0, len = 20; i < len; i++) {
+        for (let i = 0, len = 5; i < len; i++) {
         	let index = Math.floor(Math.random() * allData.length)
         	let leftData = allData.card_list[index]
         	index = Math.floor(Math.random() * allData.length)
@@ -1962,79 +1939,95 @@
 		left: 0;
 		right: 0;
 		background-color: #eee;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.youliao-main .header {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-        height: 0.533333rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #fff;
+        flex: none;
+        height: 0.533333rem;
         font-size: 16px;
         z-index: 10;
+        background-color: #fff;
 	}
 	.youliao-main .header span {
         padding: 0 0.133333rem;
 	}
 
 	.youliao-main .footer {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		height: 0.533333rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #fff;
+		height: 0.533333rem;
+        flex: none;
         font-size: 16px;
         z-index: 10;
+        background-color: #fff;
 	}
 
 	.youliao-main .wrapper {
-		position: absolute;
+		flex: 1;
+		position: relative;
 		z-index: 8;
-		top: 0.533333rem;
-		left: 0;
-		right: 0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
 	}
-
 	.youliao-main .list-item {
 		display: flex;
-		/*position: absolute;*/
+		position: absolute;
 		flex-direction: row;
 		flex-wrap: nowrap;
 		width: 100%;
 	}
-	.youliao-main .list-item-left {
-        flex: 1;
+	.list-item .list-item-left {
+		position: relative;
         padding-right: 0.006667rem;
         padding-bottom: 0.006667rem;
-        position: relative;
-	    padding-top: 4.446667rem;
-	    height: 0;
-	    overflow: hidden;
 	}
-	.youliao-main .list-item-right {
-        flex: 1;
-		padding-left: 0.006667rem;
-		padding-bottom: 0.006667rem;
+	.list-item .list-item-right {
 		position: relative;
-	    padding-top: 4.446667rem;
-	    height: 0;
-	    overflow: hidden;
+		padding-left: 0.006667rem;
+        padding-bottom: 0.006667rem;
 	}
-
+	.youliao-main .left-img-content {
+        flex: 1;
+        position: relative;
+        height: 0;
+        overflow: hidden;
+        width: 2.5rem;
+        padding-top: 177.777%;
+	}
+	.youliao-main .right-img-content {
+        flex: 1;
+        position: relative;
+        height: 0;
+        overflow: hidden;
+        width: 2.5rem;
+        padding-top: 177.777%;
+	}
 	.youliao-main .list-item img {
 		width: 100%;
         height: auto;
-        /*max-height: 8.933333rem;*/
         position: absolute;
         left: 0;
         top: 0; 
+	}
+
+	.youliao-main .pull-up {
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 0.533333rem;
+		background-color: #FFFAF0;
+	}
+	.youliao-main .pull-up img {
+		width: 0.266667rem;
+		height: 0.266667rem;
 	}
 </style>

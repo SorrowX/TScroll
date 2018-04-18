@@ -32,7 +32,7 @@
     }
 }());
 
-(function () {
+var AlloyTouch = (function () {
 
     // 给元素绑定事件, 默认冒泡
     function bind(element, type, callback) {
@@ -372,10 +372,15 @@
     };
 
     // 抛出去
-    if (typeof module !== 'undefined' && typeof exports === 'object') {
+    /*if (typeof module !== 'undefined' && typeof exports === 'object') {
         module.exports = AlloyTouch;
     } else {
         window.AlloyTouch = AlloyTouch;
-    };
+    };*/
+
+    return AlloyTouch;
 
 })();
+
+
+export default AlloyTouch;

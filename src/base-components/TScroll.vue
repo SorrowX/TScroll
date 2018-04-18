@@ -8,6 +8,7 @@
 
 <script>
     import AlloyTouch from '@/common/js/lib/alloy_touch.css.js'
+    // import AlloyTouch from '@/common/js/lib/alloy_touch.js'
     import Transform from '@/common/js/lib/transform.js'
 
     let props = {
@@ -283,6 +284,9 @@
 		    },
 		    change(ms) {
 		    	return this.debounce(function (v) {
+		    		if (v > 0) {
+			    		// console.log("v: ", v)
+		    		}
 	                let i = 0, len = this.allData.length
 
 	                for (; i < len; i++) {

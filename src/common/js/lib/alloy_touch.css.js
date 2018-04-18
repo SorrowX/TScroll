@@ -232,7 +232,7 @@ var AlloyTouch = (function () {
                     this.preX = evt.touches[0].pageX;
                     this.preY = evt.touches[0].pageY;
                     this.scroller[this.property] += d;
-
+                    
                     var timestamp = new Date().getTime();
                     if (timestamp - this.startTime > 300) {
                         this.startTime = timestamp;
@@ -323,8 +323,8 @@ var AlloyTouch = (function () {
             var el = this.scroller,
                 property = this.property;
 
-           el.style[transitionDuration] =  this._getValue(time, 600) + 'ms';
-           el.style[transitionTimingFunction] = u_ease||ease;
+            el.style[transitionDuration] =  this._getValue(time, 600) + 'ms';
+            el.style[transitionTimingFunction] = u_ease||ease;
             el[property] = value;
         },
         correction: function () {
