@@ -1937,16 +1937,20 @@
 	}
 	.youliao-fade-enter, .youliao-fade-leave-to {
 	    transform: translate3d(100%, 0, 0);
+	    opacity: 0;
 	}
 
 	.youliao-main {
 		width: 100%;
 		height: 100%;
+		max-width: 540px;
 		position: fixed;
-		z-index: 6;
+		z-index: 10;
 		top: 0;
 		left: 0;
 		right: 0;
+		bottom: 0;
+		margin: auto;
 		background-color: #eee;
 		display: flex;
 		flex-direction: column;

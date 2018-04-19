@@ -115,16 +115,20 @@
 	}
 	.simple-tscroll-fade-enter, .simple-tscroll-fade-leave-to {
 	    transform: translate3d(100%, 0, 0);
+	    opacity: 0;
 	}
 	.simple-tscroll {
 		background: #fff;
 		z-index: 99;
 		width: 100%;
+		max-width: 540px;
 		height: 100%;
 		position: fixed;
 		left: 0;
 		top: 0;
 		right: 0;
+		bottom: 0;
+		margin: auto;
 		overflow: hidden;
 	}
 
