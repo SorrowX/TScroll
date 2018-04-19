@@ -83,6 +83,8 @@
         margin: auto;
         overflow: hidden;
         background-color: #eee;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
     }
 
     .home .tscroll-list-container li {

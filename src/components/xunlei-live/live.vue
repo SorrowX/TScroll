@@ -785,6 +785,8 @@
         bottom: 0;
         margin: auto;
 		background-color: #efefef;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
 	}
 
 	.xunlei-main .wrapper { }

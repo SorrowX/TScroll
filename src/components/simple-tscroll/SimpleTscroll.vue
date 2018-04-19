@@ -130,6 +130,8 @@
 		bottom: 0;
 		margin: auto;
 		overflow: hidden;
+		-webkit-transform: translateZ(0);
+        transform: translateZ(0);
 	}
 
 	.simple-tscroll .updown {
