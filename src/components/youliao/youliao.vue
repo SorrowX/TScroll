@@ -1954,8 +1954,6 @@
 		background-color: #eee;
 		display: flex;
 		flex-direction: column;
-		-webkit-transform: translateZ(0);
-        transform: translateZ(0);
 	}
 
 	.youliao-main .header {

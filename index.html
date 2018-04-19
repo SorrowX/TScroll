@@ -3,10 +3,18 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="x5-fullscreen" content="true">
+	<meta name="full-screen" content="yes">
     <title>TScroll</title>
   </head>
   <body>
     <div id="app"></div>
+    <script type="text/javascript">
+    	  // fixed qq内 页面会上下滚动的bug
+    	  document.querySelector('body').addEventListener('touchstart', function (ev) {
+		        event.preventDefault();
+		    });
+    </script>
     <!--built files will be auto injected-->
   </body>
 </html>

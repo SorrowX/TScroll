@@ -306,9 +306,9 @@ var AlloyTouch = (function () {
                         self.correction();
                     }
                 }
-                // if (this.preventDefault && !preventDefaultTest(evt.target, this.preventDefaultException)) {
-                //     evt.preventDefault();
-                // }
+                if (this.preventDefault && !preventDefaultTest(evt.target, this.preventDefaultException)) {
+                    evt.preventDefault();
+                }
                 this.isTouchStart = false;
             }
         },
