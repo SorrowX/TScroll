@@ -103,11 +103,11 @@
 		    		this.init()
 			    })
 			},
-			// 处理加载数据, 并且让父组件渲染列表ui
+			// 处理加载的动态数据, 并且让父组件渲染列表ui
 			processData(loadData, isReset) {
 				if (isReset) {
 					this.recoveryValState()
-					this.$emit('update:renderDataList', [])
+					// this.$emit('update:renderDataList', [])
 				}
 				let i = 0, len = loadData.length
 				for (; i < len; i++) {
@@ -284,9 +284,6 @@
 		    },
 		    change(ms) {
 		    	return this.debounce(function (v) {
-		    		if (v > 0) {
-			    		// console.log("v: ", v)
-		    		}
 	                let i = 0, len = this.allData.length
 
 	                for (; i < len; i++) {
