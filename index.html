@@ -12,9 +12,9 @@
         <div id="app"></div>
         <script type="text/javascript">
         	  // fixed qq内 页面会上下滚动的bug
-        	  document.querySelector('body').addEventListener('touchstart', function (ev) {
-    		        event.preventDefault();
-    		    });
+            document.addEventListener("touchmove", function (evt) {
+                evt.preventDefault();
+            }, false);
         </script>
         <!--built files will be auto injected-->
     </body>
