@@ -3,7 +3,7 @@
  * Github: https://github.com/AlloyTeam/AlloyFinger
  * Sorrow.X --- 添加注释,注释纯属个人理解(关于rotate旋转手势,理解的还不透彻)
  */
-; (function () {
+var AlloyFinger = (function () {
     // 一些要使用的内部工具函数
 
     // 2点之间的距离 (主要用来算pinch的比例的, 两点之间的距离比值求pinch的scale)
@@ -356,12 +356,15 @@
     };
 
     // 抛出去
-    if (typeof module !== 'undefined' && typeof exports === 'object') {
+    /*if (typeof module !== 'undefined' && typeof exports === 'object') {
         module.exports = AlloyFinger;
     } else {
         window.AlloyFinger = AlloyFinger;
-    };
+    };*/
+    return AlloyFinger;
 })();
+
+export default AlloyFinger;
 
 
 

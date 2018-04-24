@@ -1,6 +1,6 @@
 # TScroll
 
-> TScroll.vue 一个Vue组件
+> TScroll.vue 一个Vue组件(TouchScroll)
 ``` bash
 1. 用来解决移动端列表的滚动
 2. 使用姿势较为统一
@@ -126,6 +126,8 @@ getListActualDom 方法: 获取列表容器中实际的dom元素(因为父容器
 ## demo
     
 ``` bash
+    效果详见 [Demo](https://sorrowx.github.io/TScroll/#/)
+
     4月10日:
         新增首页和SimpleTscroll页面
     4月16日:

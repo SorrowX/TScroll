@@ -19,12 +19,12 @@
 						    v-for="(item, index) in renderDataList"
 						    :key="item.data.key"
 						>
-							<div class="list-item-left">
+							<div class="list-item-left" @click="handlerLeftClick(item.data.leftData)">
 								<div class="left-img-content">
 									<img :src="item.data.leftData.res_info.dynamic_url">
 								</div>
 							</div>
-							<div class="list-item-right">
+							<div class="list-item-right" @click="handlerRightClick(item.data.leftData)">
 								<div class="right-img-content">
 									<img :src="item.data.rightData.res_info.dynamic_url">
 								</div>
@@ -38,9 +38,12 @@
 				</template>
 			</t-scroll>
 
+			<router-view></router-view>
+
 			<div class="footer">
 				有料短视频 底部
 			</div>
+			
 	    </div>
 	</transition>
 </template>
@@ -84,7 +87,15 @@
 				mockData(1500).then((ret) => {
 					this.pullUpData = ret
 				})
-			}
+			},
+			handlerLeftClick(data) {
+				console.log(data)
+				this.$router.push({ path: '/youliao/video/1', query: { plan: 'private' }})
+			},
+			handlerRightClick(data) {
+				console.log(data)
+				this.$router.push({ path: '/youliao/video/2', query: { plan: 'private' }})
+			},
 		},
 		mounted() {
 			mockData(100).then((ret) => {

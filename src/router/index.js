@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import SimpleTscroll from '@/components/simple-tscroll/SimpleTscroll'
 import XunLeiLive from '@/components/xunlei-live/live'
 import YouLiao from '@/components/youliao/youliao'
+import YouLiaoVideo from '@/components/youliao/youliao-video'
 
 Vue.use(Router)
 
@@ -27,7 +28,13 @@ export default new Router({
         {
             path: '/youliao',
             name: 'youliao',
-            component: YouLiao
+            component: YouLiao,
+            children: [
+                {
+                  path: 'video/:id',
+                  component: YouLiaoVideo
+                }
+            ]
         }
     ]
 })
