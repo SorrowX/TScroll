@@ -90,11 +90,11 @@
 			},
 			handlerLeftClick(data) {
 				console.log(data)
-				this.$router.push({ path: '/youliao/video/1', query: { plan: 'private' }})
+				this.$router.push({ path: '/youliao/video/1', query: { obj: JSON.stringify(data) }})
 			},
 			handlerRightClick(data) {
 				console.log(data)
-				this.$router.push({ path: '/youliao/video/2', query: { plan: 'private' }})
+				this.$router.push({ path: '/youliao/video/2', query: { obj: JSON.stringify(data) }})
 			},
 		},
 		mounted() {
