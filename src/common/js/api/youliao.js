@@ -1739,18 +1739,32 @@ let allData = {
 
 let key = 0
 
+function deepCopy(obj){
+    if (typeof obj != 'object') {
+        return obj
+    }
+    var newobj = {}
+    for (var attr in obj) {
+        newobj[attr] = deepCopy(obj[attr])
+    }
+    return newobj
+}
+
 export default function getRandomData() {
 	let ret = [],
 		self = this
 	for (let i = 0, len = 20; i < len; i++) {
 		let index = Math.floor(Math.random() * allData.length)
-		let leftData = allData.card_list[index]
+		let leftData = deepCopy(allData.card_list[index])
 		index = Math.floor(Math.random() * allData.length)
-		let rightData = allData.card_list[index]
+		let rightData = deepCopy(allData.card_list[index])
+		key++
+		leftData.key_id = 'left-' + key
+		rightData.key_id = 'right-' + key
 		ret.push({
 			leftData,
 			rightData,
-			key: key++
+			key: key
 		})
 	}
 	return ret

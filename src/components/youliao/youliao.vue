@@ -19,12 +19,12 @@
 						    v-for="(item, index) in renderDataList"
 						    :key="item.data.key"
 						>
-							<div class="list-item-left" @click="handlerLeftClick(item.data.leftData)">
+							<div class="list-item-left" @click="handlerClick(item.data.leftData)">
 								<div class="left-img-content">
 									<img :src="item.data.leftData.res_info.dynamic_url">
 								</div>
 							</div>
-							<div class="list-item-right" @click="handlerRightClick(item.data.leftData)">
+							<div class="list-item-right" @click="handlerClick(item.data.rightData)">
 								<div class="right-img-content">
 									<img :src="item.data.rightData.res_info.dynamic_url">
 								</div>
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex'
     import TScroll from '@/base-components/TScroll.vue'
     import getRandomData from '@/common/js/api/youliao.js'
     
@@ -86,20 +87,24 @@
 			handlerPullUpLoading() {
 				mockData(1500).then((ret) => {
 					this.pullUpData = ret
+					this.setYlAllData(ret)
 				})
 			},
-			handlerLeftClick(data) {
-				console.log(data)
-				this.$router.push({ path: '/youliao/video/1', query: { obj: JSON.stringify(data) }})
+			handlerClick(data) {
+				console.log(111, data.key_id)
+				this.$router.push({ 
+					path: `/youliao/video/${data.key_id}`, 
+					query: { keyId: data.key_id }
+				})
 			},
-			handlerRightClick(data) {
-				console.log(data)
-				this.$router.push({ path: '/youliao/video/2', query: { obj: JSON.stringify(data) }})
-			},
+			...mapActions([
+				'setYlAllData'
+			])
 		},
 		mounted() {
 			mockData(100).then((ret) => {
 				this.pullUpData = ret
+				this.setYlAllData(ret)
 			})
 		}
 	}

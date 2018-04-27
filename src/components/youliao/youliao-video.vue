@@ -3,36 +3,36 @@
 		<div class="yl-video-scroll">
 			<div 
 			    class="yl-scroll"
-			    :style="getYlScrollTranslateY"
 			    ref="touchDom"
+			    :style="getYlScrollTranslateY"
+			    @transitionend="scrollTransitionend"
 			>
-				<section class="yl-panel">
+				<section 
+				    class="yl-panel"
+				    v-for="(obj, index) in allData"
+				>
 					<video
-						id="theVideo"
 						class="yl-video-player"
-						preload="auto"
 						autoplay="autoplay"
-						src="http://58.220.46.223/sl.video.xycdn.n0808.com/fe00ea35d48ce5030cc1757873d363c752faafbc?sign=75e7d567b387faf7cc0fb309b7a10183&t=5ae330f3&xsign=1524838643-f1db65b82bf3fa7479865f6af201063b"
-						poster="http://sl.image.7niu.n0808.com/vf_f64842a07cc8140cc46bcb5c4e6ee3b2b07b2bc5.jpg"
 						type="video/mp4"
 						width="100%"
 						webkit-playsinline="true"
 						playsinline="true"
 						x5-video-player-type="h5"
 						x5-video-player-fullscreen="portraint"
+						:id="obj.key_id"
+						:poster="obj.res_info.cover_url"
+						:src="obj.res_info.play_url"
 					>
 					</video>
 				</section>
-				<section class="yl-panel">2222</section>
-				<section class="yl-panel">3333</section>
-				<section class="yl-panel">4444</section>
-				<section class="yl-panel">5555</section>
 			</div>
 		</div>
 	</transition>
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
     import AlloyFinger from '@/common/js/lib/alloy_finger.js'
 
 	export default {
@@ -40,7 +40,9 @@
 		data() {
 			return {
 				ylScrollTranslateY: 0,
-				curPlayInfo: null
+				curPlayKeyId: null,
+				curPlayIndex: 0,
+				allData: []
 			}
 		},
 		computed: {
@@ -48,7 +50,10 @@
                 return {
                 	transform: "translateY(" + this.ylScrollTranslateY + "%) translateZ(0)"
                 }
-			}
+			},
+			...mapGetters([
+				'getYlAllData'
+			])
 		},
 		methods: {
 			initAlloyFinger() {
@@ -58,25 +63,74 @@
 	                swipe: function (evt) {
 	                	let v = Math.abs(self.ylScrollTranslateY)
 	                    let n = v / 100
-	                    if (evt.direction === 'Up') {
-	                    	if (n < length - 1) {
-                                self.ylScrollTranslateY = (v + 100) * -1
-	                    	}
-	                    } else if (evt.direction === 'Down') {
-	                    	if (n > 0) {
-	                    		self.ylScrollTranslateY = (v - 100) * -1
-	                    	}
-	                    } else if (evt.direction === 'Right') {
-                            self.$router.go(-1)
-	                    }
+	                    // if (!self._touchSign) {
+	                    	self._touchSign = true
+		                    if (evt.direction === 'Up') {
+		                    	if (n < length - 1) {
+		                    		self.pause(self.curPlayIndex)
+	                                self.ylScrollTranslateY = (v + 100) * -1
+	                                self.curPlayIndex += 1
+	                                self.play(self.curPlayIndex)
+		                    	}
+		                    } else if (evt.direction === 'Down') {
+		                    	if (n > 0) {
+		                    		self.pause(self.curPlayIndex)
+		                    		self.ylScrollTranslateY = (v - 100) * -1
+		                    		self.curPlayIndex -= 1
+		                    		self.play(self.curPlayIndex)
+		                    	}
+		                    }
+	                    // }
+	                    if (evt.direction === 'Right') {
+	                        self.$router.go(-1)
+		                }
 	                }
 	            })
+			},
+			handlerData(data, keyId) {
+				data.forEach((obj) => {
+                    this.allData.push(obj.leftData, obj.rightData)
+				})
+				let arr = this.allData,
+				    len = arr.length,
+				    i = 0
+				for (; i < len; i++) {
+					let item = arr[i]
+					if (item.key_id === keyId) {
+						this.curPlayIndex = i
+						if (i >= 1) {
+							this.ylScrollTranslateY = i * 100 * -1
+						}
+                        break
+					}
+				}
+			},
+			pause(index) {
+				let curPlayInfo = this.allData[index]
+				let videoDom = document.getElementById(curPlayInfo.key_id)
+				videoDom && videoDom.pause()
+			},
+			play(index) {
+				let curPlayInfo = this.allData[index]
+				let videoDom = document.getElementById(curPlayInfo.key_id)
+				videoDom && videoDom.play()
+			},
+			scrollTransitionend() {
+				console.log('transitionend')
+				this._touchSign = false
 			}
 		},
+		created() {
+			this._touchSign = false
+		},
 		mounted() {
-			this.curPlayInfo = JSON.parse(this.$route.query.obj)
-			console.log('1', this.curPlayInfo.res_info)
-			this.initAlloyFinger()
+			this.curPlayKeyId = this.$route.query.keyId
+			console.log('当前数据id', this.curPlayKeyId, this.getYlAllData)
+
+			this.handlerData(this.getYlAllData, this.curPlayKeyId)
+			this.$nextTick(() => {
+				this.initAlloyFinger()
+			})
 		}
 	}
 </script>
