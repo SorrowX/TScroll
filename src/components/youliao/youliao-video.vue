@@ -16,6 +16,7 @@
 						type="video/mp4"
 						webkit-playsinline="true"
 						playsinline="true"
+						width="100%"
 						x5-video-player-type="h5"
 						x5-video-player-fullscreen="portraint"
 						:id="obj.key_id"
