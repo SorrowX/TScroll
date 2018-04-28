@@ -21,12 +21,12 @@
 						>
 							<div class="list-item-left" @click="handlerClick(item.data.leftData)">
 								<div class="left-img-content">
-									<img :src="item.data.leftData.res_info.dynamic_url">
+									<img :src="item.data.leftData.res_info.dynamic_url1">
 								</div>
 							</div>
 							<div class="list-item-right" @click="handlerClick(item.data.rightData)">
 								<div class="right-img-content">
-									<img :src="item.data.rightData.res_info.dynamic_url">
+									<img :src="item.data.rightData.res_info.dynamic_url1">
 								</div>
 							</div>
 						</div>

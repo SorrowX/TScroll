@@ -13,16 +13,14 @@
 				>
 					<video
 						class="yl-video-player"
-						autoplay="autoplay"
 						type="video/mp4"
-						width="100%"
 						webkit-playsinline="true"
 						playsinline="true"
 						x5-video-player-type="h5"
 						x5-video-player-fullscreen="portraint"
 						:id="obj.key_id"
 						:poster="obj.res_info.cover_url"
-						:src="obj.res_info.play_url"
+						src="http://video.7niu.n0808.com/5550546743857d92849b9d5cb6f0f9916df99933?sign=95d90d6bc9224201cab703077a06160c&t=5ae4d9ad"
 					>
 					</video>
 				</section>
@@ -186,6 +184,8 @@
 	}
 
 	.yl-video-player {
+		width: 100%;
+		height: 100%;
 		position: absolute;
 		top: 0;
 		bottom: 0;
