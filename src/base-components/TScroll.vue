@@ -48,7 +48,7 @@
 				}
 			}
 		},
-		// 控制alloytouch相关属性 
+		// 控制alloytouch相关属性  
 		scrollOption: {
 			type: Object,
 			default: function() {
@@ -107,7 +107,7 @@
 			processData(loadData, isReset) {
 				if (isReset) {
 					this.recoveryValState()
-					// this.$emit('update:renderDataList', [])
+					this.$emit('update:renderDataList', [])
 				}
 				let i = 0, len = loadData.length
 				for (; i < len; i++) {
@@ -163,6 +163,7 @@
 	                        this.$set(this.scrollBarOption, k, scrollBarOption[k])
 						}
 					}
+					this.scrollOption.excrMin = this.rem2px(this.scrollOption.excrMin)
 				}
 			},
 			// 初始化列表dom,设置相应dom的translateY属性
@@ -480,17 +481,17 @@
 		    	}
 		    },
 		    hasTheDom(dom) {
-		    	let ret = false
+		    	let bool = false
 		    	let i = 0, 
 		    	    arr = Array.prototype.slice.call(this.listContainerDom.children), 
 		    	    len = arr.length
 		    	for (; i < arr.length; i++) {
 		    		if (arr[i] === dom) {
-		    			ret = true
+		    			bool = true
 		    			break
 		    		}
 		    	}
-		    	return ret
+		    	return bool
 		    },
 		    recoveryValState() {
 		    	this.allData = []
@@ -523,6 +524,21 @@
 		                fn.apply(context, args)
 		            }
 		        }
+		    },
+		    rem2px(num) {
+		    	let htmlFontSize = parseFloat(getComputedStyle(window.document.documentElement)['font-size'])
+		    	if (
+		    		typeof num === 'string' &&
+		    		num.match(/rem$/)
+		    	) {
+                    num = htmlFontSize * parseFloat(num)
+		    	} else if (
+		    		typeof num === 'string' &&
+		    		num.match(/px$/)
+		    	) {
+		    		num = parseFloat(num)
+		    	}
+		    	return num
 		    }
 		}
 	}

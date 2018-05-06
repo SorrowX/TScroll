@@ -121,15 +121,23 @@ getListActualDom 方法: 获取列表容器中实际的dom元素(因为父容器
        1.修复 少传excrMin参数,滑动列表时,内容会被清空的的bug (大部分参数都是可选的,所以没传了话,应该有默认值)
        2.修复 下拉时滚动条高度不跟着变化的bug
        3.修复 有simpleScroll属性就是简单滚动的情况下,列表最后一个dom被隐藏的bug
+    5月6日:
+       1.excrMin属性支持rem单位,可以为Number|String类型,number类型则为px单位
+         eg: excrMin: 44 和 excrMin: '44px' 效果一样; excrMin: '1.5rem'的话会根据当前的html的fontSize
+             计算出px值
 ```
 
 ## demo
     
 ``` bash
-    效果详见 [Demo](https://sorrowx.github.io/TScroll/#/)
+    效果详见 https://sorrowx.github.io/TScroll/#/
 
     4月10日:
         新增首页和SimpleTscroll页面
     4月16日:
         新增迅雷直播首页
+    4月27日:
+        新增有料视频列表页和视频播放页(其视频接口已关闭,demo为同一个视频)
+    5月6日:
+        新增视频单页,和视频播放页(该demo主要用于自己本地视频播放娱乐的)
 ```

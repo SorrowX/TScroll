@@ -16,12 +16,11 @@
 						type="video/mp4"
 						webkit-playsinline="true"
 						playsinline="true"
-						width="100%"
 						x5-video-player-type="h5"
 						x5-video-player-fullscreen="portraint"
 						:id="obj.key_id"
 						:poster="obj.res_info.cover_url"
-						src="http://video.7niu.n0808.com/5550546743857d92849b9d5cb6f0f9916df99933?sign=95d90d6bc9224201cab703077a06160c&t=5ae4d9ad"
+						src="http://video.7niu.n0808.com/14de1e94a3c6fa89c62bd1e13e405c5d8f636fd1?sign=2120570da1ac74ab89328add56dec626&t=5aef672e"
 					>
 					</video>
 				</section>

@@ -77,3 +77,11 @@ body {
     max-width: 540px;
     min-width: 320px;
 }
+
+/* 
+    75px -> 1rem; 
+    3.75px -> 1vw;
+
+    (3.75x20)px -> (1x20)vw;
+    75px -> 20vm
+ */

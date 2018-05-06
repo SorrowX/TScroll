@@ -15,7 +15,7 @@ Vue.use(VueLazyload, {
     loading: require('@/common/images/common/loading.jpg'),
     attempt: 1,
     // the default is ['scroll', 'wheel', 'mousewheel', 'resize', 'animationend', 'transitionend']
-    // listenEvents: [ 'scroll' ]
+    listenEvents: [ 'transitionend' ]
 })
 
 fastclick.attach(document.body)

@@ -5,6 +5,9 @@ import SimpleTscroll from '@/components/simple-tscroll/SimpleTscroll'
 import XunLeiLive from '@/components/xunlei-live/live'
 import YouLiao from '@/components/youliao/youliao'
 import YouLiaoVideo from '@/components/youliao/youliao-video'
+import Sv from '@/components/sv-video/sv'
+import SvVideo from '@/components/sv-video/sv-video'
+import SvList from '@/components/sv-video/sv-list'
 
 Vue.use(Router)
 
@@ -33,6 +36,28 @@ export default new Router({
                 {
                   path: 'video/:id',
                   component: YouLiaoVideo
+                }
+            ]
+        },
+        {
+            path: '/sv',
+            name: 'sv',
+            component: Sv,
+            children: [
+                {
+                  path: 'sv-video/:id',
+                  component: SvVideo
+                }
+            ]
+        },
+        {
+            path: '/sv-list',
+            name: 'svList',
+            component: SvList,
+            children: [
+                {
+                  path: 'sv-video/:id',
+                  component: SvVideo
                 }
             ]
         }
