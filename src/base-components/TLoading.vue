@@ -18,7 +18,21 @@
 				type: String,
 				default: '拼命加载中拼命加载中'
 	    	}
-		}
+		},
+        data() {
+            return {
+                bShow: true,
+                opacityStyle: 1
+            }
+        },
+        methods: {
+            hide() {
+                this.opacityStyle = 0
+            },
+            show() {
+                this.opacityStyle = 1
+            }
+        }
 	}
 </script>
 
@@ -32,9 +46,10 @@
 		left: 0;
 		right: 0;
 		margin: auto;
+        transform: all .3s;
 	}
 	.t-loading {
-        width: 80px;
+        width: 50px;
         height: 40px;
         position: absolute;
 		top: 0;
@@ -45,9 +60,9 @@
     }
     .t-loading span {
         display: inline-block;
-        width: 8px;
+        width: 6px;
         height: 100%;
-        border-radius: 4px;
+        border-radius: 3px;
         background: lightgreen;
         -webkit-animation: load 1s ease infinite;
 		animation: load 1s ease infinite;

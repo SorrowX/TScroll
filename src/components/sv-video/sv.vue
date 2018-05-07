@@ -15,7 +15,7 @@
 						</li>
 					</ul>
 				</div>
-				<t-scroll 
+				<t-scroll
 				    :pullUpData="pullUpData"
 				    :renderDataList.sync="renderDataList"
 				    v-bind="tScrollOptions"
@@ -58,7 +58,12 @@
 					</template>
 				</t-scroll>
 				<!-- <loading v-show="renderDataList.length === 0" id="sv-loading-style"></loading> -->
-				<t-loading v-show="renderDataList.length === 0" id="sv-loading-style"></t-loading>
+				<t-loading 
+				    id="sv-loading-style"
+				    ref="tLoadingComp"
+				    v-show="renderDataList.length === 0"
+				>
+				</t-loading>
 				<router-view></router-view>
 			</div>
 	    </div>
@@ -108,7 +113,7 @@
 		        	this.preTagInfo = str
         	    	this.$refs.tScrollComp.clearListContainerDom(() => {
         	    		;((async function() {
-        	    			await initData(self.$route.query.navInfo.id)
+        	    			await initData(info.id)
         	    			let ret = await getData(15)
         	    			if (
         						Array.isArray(ret) &&
@@ -197,7 +202,6 @@
 			this.preTagInfo = ''
 		},
 		mounted() { // '1'表示第一个tag
-		    this.initAlloyFinger()
 			initData('1').then((ret) => {
 				this.arrTag = ret
 				this.$nextTick(() => {
@@ -245,6 +249,7 @@
 
 	#sv-loading-style {
 		top: 0.64rem;
+		transition: all .3s;
 	}
 
 	.sv-main .wrapper {
@@ -255,6 +260,7 @@
 		width: 100%;
 		height: 100%;
 		overflow: hidden;
+		transition: all .3s;
 	}
 
 	.sv-main{

@@ -20,7 +20,7 @@
 						x5-video-player-fullscreen="portraint"
 						:id="obj.key_id"
 						:poster="obj.res_info.cover_url"
-						src="http://video.7niu.n0808.com/14de1e94a3c6fa89c62bd1e13e405c5d8f636fd1?sign=2120570da1ac74ab89328add56dec626&t=5aef672e"
+						src="http://video.7niu.n0808.com/14de1e94a3c6fa89c62bd1e13e405c5d8f636fd1?sign=1e3457f9385417b49417e2c94ca5db8f&t=5af108e2"
 					>
 					</video>
 				</section>
