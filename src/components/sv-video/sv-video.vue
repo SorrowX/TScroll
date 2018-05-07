@@ -21,8 +21,7 @@
 		name: 'sv-video',
 		data() {
 			return {
-				obj: {},
-
+				obj: {}
 			}
 		},
 		methods: {
@@ -39,7 +38,6 @@
 		},
 		mounted() {
 			this.obj = JSON.parse(this.$route.query.data)
-			console.log(this.obj)
 			this.$nextTick(() => {
 				this.initAlloyFinger()
 			})

@@ -211,11 +211,12 @@
 		        return arr
 		    },
 		    setTranslateY(dom,value) {
-		        dom.style.transform = 
+		        /*dom.style.transform = 
 		        dom.style.msTransform = 
 		        dom.style.OTransform = 
 		        dom.style.MozTransform = 
-		        dom.style.webkitTransform = "translateY(" + value + "px) translateZ(0)"
+		        dom.style.webkitTransform = "translateY(" + value + "px) translateZ(0)"*/
+		        this.setStylePropForDom(dom, "transform", "translateY(" + value + "px) translateZ(0)")
 		    },
 		    // 实例化at实例
 		    initAlloyTouch() {
@@ -537,8 +538,28 @@
 		    		num.match(/px$/)
 		    	) {
 		    		num = parseFloat(num)
+		    	} else {
+		    		num = typeof num === 'number' ? num : 0
 		    	}
 		    	return num
+		    },
+		    setStylePropForDom(dom, prop, value) {
+		    	let prefix = ['ms', 'OT', 'Moz', 'webkit']
+		    	prefix.forEach((item) => {
+					let p = item + prop.slice(0, 1).toUpperCase() + prop.slice(1)
+					dom.style[p] = value
+		    	})
+		    	dom.style[prop] = value
+		    },
+		    clearListContainerDom(cb) {
+		    	let transform = 'matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)'
+		    	this.setStylePropForDom(this.targetDom, 'transform', transform)
+		    	this.scrollBar(0)
+		    	this.recoveryValState()
+		    	this.$emit('update:renderDataList', [])
+		    	this.$nextTick(() => {
+					cb && cb()
+		    	})
 		    }
 		}
 	}

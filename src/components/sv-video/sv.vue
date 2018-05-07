@@ -1,7 +1,7 @@
 <template>
 	<transition name="sv-fade">
-		<div class="sv-main">
-			<div v-show="pullUpData.length > 0">
+		<div class="sv-main" ref="touchDom">
+			<div>
 				<div class="sv-header" ref="sv-header-target">
 					<ul ref="sv-header-touch">
 						<li 
@@ -17,11 +17,11 @@
 				</div>
 				<t-scroll 
 				    :pullUpData="pullUpData"
-				    :pullDownData="pullDownData"
 				    :renderDataList.sync="renderDataList"
 				    v-bind="tScrollOptions"
 				    @pullUpLoading="handlerPullUpLoading"
 				    ref="tScrollComp"
+				    v-show="renderDataList.length > 0"
 				>
 					<template>
 						<div class="sv-list" ref="tscroll-list-container">
@@ -57,9 +57,10 @@
 		    			<div ref="tscroll-pull-up" class="loading">{{ loadTip }}</div>
 					</template>
 				</t-scroll>
+				<!-- <loading v-show="renderDataList.length === 0" id="sv-loading-style"></loading> -->
+				<t-loading v-show="renderDataList.length === 0" id="sv-loading-style"></t-loading>
 				<router-view></router-view>
 			</div>
-			<loading v-show="pullUpData.length === 0"></loading>
 	    </div>
 	</transition>
 </template>
@@ -67,23 +68,23 @@
 <script>
     import TScroll from '@/base-components/TScroll.vue'
     import Loading from '@/base-components/Loading.vue'
+    import TLoading from '@/base-components/TLoading.vue'
     import Transform from '@/common/js/lib/transform.js'
     import AlloyTouch from '@/common/js/lib/alloy_touch.css.js'
+    import AlloyFinger from '@/common/js/lib/alloy_finger.js'
     import { initData, getData } from '@/common/js/api/sv.js'
-
-    function mockData(ms) {
-    	return getData(15)
-    }
 
 	export default {
 		name: 'sv',
-		components: { TScroll, Loading },
+		components: { TScroll, Loading, TLoading },
 		data() {
 			return {
 				pullUpData: [],
-				pullDownData: [],
 				renderDataList: [],
 				tScrollOptions: {
+					scrollBarOption: {
+						fade: true
+					},
 					scrollOption: {
 						excrMin: '0.64rem'
 					}
@@ -93,11 +94,46 @@
 				curTagIndex: 0
 			}
 		},
+		watch: {
+		    '$route': function() {
+		    	let self = this
+		    	console.log('如果路由有变化, 会再次执行该方法', this.$route.query)
+		    	let str = this.$route.query.navInfo
+		    	let info = str && JSON.parse(str)
+		        if (
+		        	this.$route.path === '/sv' &&
+		        	(info && info.hasOwnProperty('id')) &&
+		        	this.preTagInfo !== str
+		        ) {
+		        	this.preTagInfo = str
+        	    	this.$refs.tScrollComp.clearListContainerDom(() => {
+        	    		;((async function() {
+        	    			await initData(self.$route.query.navInfo.id)
+        	    			let ret = await getData(15)
+        	    			if (
+        						Array.isArray(ret) &&
+        						ret.length > 0
+        					) {
+        		                self.pullUpData = ret
+        					} else if (ret.length === 0) {
+        						self.loadTip = '人家是有底线的啦!'
+        					}
+        	    		})()).catch((e) => {
+        	    			console.error('路由换数据异常')
+        	    		})
+        	    	})
+		        }
+		    }
+		},
 		methods: {
 			initHeaderScroll() {
 				let headerTarget = this.$refs['sv-header-target']
 				let headerTouchTarget = this.$refs['sv-header-touch']
-				let width = (headerTouchTarget.children[0].offsetWidth || 46) * (headerTouchTarget.children.length)
+				let computedStyle = getComputedStyle(headerTouchTarget.children[0])
+				let liWidth = parseFloat(computedStyle['width']) + 
+				              parseFloat(computedStyle['padding-left']) + 
+				              parseFloat(computedStyle['padding-right'])
+				let width = (liWidth || 46) * (headerTouchTarget.children.length)
 	            Transform(headerTouchTarget)
 	            new AlloyTouch({
 	                touch: headerTarget,//反馈触摸的dom
@@ -110,32 +146,24 @@
 	                preventDefault: false
 	            })
 			},
-			handlerNav(obj) {
-				console.log(obj)
+			handlerNav(obj, index) {
+				// console.log(obj)
+				// this.$router.go(0)
 
+				this.curTagIndex = index
+				this.$router.push({
+					path: '/sv', 
+					query: {navInfo: JSON.stringify(obj)}
+				})
+
+				/*// 跳转新的路由组件,这是一个错误的思路
 				this.$router.push({
 					path: `/sv-list`, 
 					query: { data: JSON.stringify(obj) }
-				})
-
-				/*let self = this
-				;((async function() {
-					await initData(obj.id)
-					let ret = await getData(15)
-					if (
-						Array.isArray(ret) &&
-						ret.length > 0
-					) {
-		                self.pullDownData = ret
-					} else if (ret.length === 0) {
-						self.loadTip = '人家是有底线的啦!'
-					}
-				})()).catch((e) => {
-					console.log('切换tag失败')
 				})*/
 			},
 			handlerPullUpLoading() {
-				mockData().then((ret) => {
+				getData(15).then((ret) => {
 					if (
 						Array.isArray(ret) &&
 						ret.length > 0
@@ -146,15 +174,30 @@
 					}
 				})
 			},
-			handlerClick(data) {
-				// console.log('click', data)
+			handlerClick(data) { // 跳转子路由
 				this.$router.push({
 					path: `/sv/sv-video/${data.id}`, 
 					query: { data: JSON.stringify(data) }
 				})
+			},
+			initAlloyFinger() {
+				let self = this
+				new AlloyFinger(this.$refs.touchDom, {
+	                swipe: function (evt) {
+	                    if (evt.direction === 'Right') {
+	                        self.$router.push({
+								path: `/`
+							})
+		                }
+	                }
+	            })
 			}
 		},
-		mounted() {
+		created() {
+			this.preTagInfo = ''
+		},
+		mounted() { // '1'表示第一个tag
+		    this.initAlloyFinger()
 			initData('1').then((ret) => {
 				this.arrTag = ret
 				this.$nextTick(() => {
@@ -198,6 +241,10 @@
 		font-weight: bold;
 		color: #000;
 		border-bottom: 0.026667rem solid #000;
+	}
+
+	#sv-loading-style {
+		top: 0.64rem;
 	}
 
 	.sv-main .wrapper {

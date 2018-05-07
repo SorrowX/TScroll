@@ -112,6 +112,11 @@ getAllData 方法: 获取所有的数据,就是从服务器每次请求的数据
 getListActualDom 方法: 获取列表容器中实际的dom元素(因为父容器始终会保持小于5屏左右的数据)
     无参数
     返回值: Array(dom数组或者空数组)
+
+clearListContainerDom 方法: 清空当前列表容器所有的孩子
+    参数(cb) 
+        cb: Function 清空后的回掉(因为vue更新dom基本放到本次事件循环的末尾执行,所以提供个回掉)
+    返回值: undefined
 ```
 
 ## TScroll.vue 更新日志
@@ -125,6 +130,8 @@ getListActualDom 方法: 获取列表容器中实际的dom元素(因为父容器
        1.excrMin属性支持rem单位,可以为Number|String类型,number类型则为px单位
          eg: excrMin: 44 和 excrMin: '44px' 效果一样; excrMin: '1.5rem'的话会根据当前的html的fontSize
              计算出px值
+    5月7日:
+       1.TScroll组件实例新增clearListContainerDom方法,用于清空当前列表容器所有的孩子,其他状态相应的置为初始状态
 ```
 
 ## demo

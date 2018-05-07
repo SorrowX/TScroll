@@ -73,6 +73,13 @@ export function initData(dirId) {
 		serverData = getStaticData()
 		return getStaticTag()
 	})
+
+	/*serverData = getStaticData()
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			return resolve(getStaticTag())
+		}, 0)
+	})*/
 }
 
 export function getData(num) {
