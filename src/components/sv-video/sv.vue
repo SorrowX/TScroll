@@ -21,7 +21,7 @@
 				    v-bind="tScrollOptions"
 				    @pullUpLoading="handlerPullUpLoading"
 				    ref="tScrollComp"
-				    v-show="renderDataList.length > 0"
+				    :style="{opacity: wrapperDomOpacity}"
 				>
 					<template>
 						<div class="sv-list" ref="tscroll-list-container">
@@ -54,7 +54,7 @@
 			    				</div>
 			    			</section>
 						</div>
-		    			<div ref="tscroll-pull-up" class="loading">{{ loadTip }}</div>
+		    			<div ref="tscroll-pull-up" class="loading" v-show="renderDataList.length > 0">{{ loadTip }}</div>
 					</template>
 				</t-scroll>
 				<!-- <loading v-show="renderDataList.length === 0" id="sv-loading-style"></loading> -->
@@ -76,7 +76,6 @@
     import TLoading from '@/base-components/TLoading.vue'
     import Transform from '@/common/js/lib/transform.js'
     import AlloyTouch from '@/common/js/lib/alloy_touch.css.js'
-    import AlloyFinger from '@/common/js/lib/alloy_finger.js'
     import { initData, getData } from '@/common/js/api/sv.js'
 
 	export default {
@@ -96,24 +95,30 @@
 				},
 				loadTip: 'loading',
 				arrTag: [],
-				curTagIndex: 0
+				curTagIndex: 0,
+				wrapperDomOpacity: 0
 			}
 		},
 		watch: {
-		    '$route': function() {
+			renderDataList(newVal) {
+		    	if (newVal.length > 0) { // 显示列表
+					this.wrapperDomOpacity = 1
+		    	}
+		    },
+		    '$route': function(to, from) {
+		    	// console.log(to, from)
 		    	let self = this
-		    	console.log('如果路由有变化, 会再次执行该方法', this.$route.query)
-		    	let str = this.$route.query.navInfo
-		    	let info = str && JSON.parse(str)
+		    	let str = to.query.navInfo
+		    	let queryInfo = str && JSON.parse(str)
+		    	if (from.path.indexOf('/sv-video') != -1) { return }
 		        if (
-		        	this.$route.path === '/sv' &&
-		        	(info && info.hasOwnProperty('id')) &&
-		        	this.preTagInfo !== str
+		        	to.path.indexOf('/sv-video') === -1 &&
+		        	(queryInfo && queryInfo.hasOwnProperty('id'))
 		        ) {
-		        	this.preTagInfo = str
+		        	this.wrapperDomOpacity = 0
         	    	this.$refs.tScrollComp.clearListContainerDom(() => {
         	    		;((async function() {
-        	    			await initData(info.id)
+        	    			await initData(queryInfo.id)
         	    			let ret = await getData(15)
         	    			if (
         						Array.isArray(ret) &&
@@ -153,11 +158,10 @@
 			},
 			handlerNav(obj, index) {
 				// console.log(obj)
-				// this.$router.go(0)
 
 				this.curTagIndex = index
 				this.$router.push({
-					path: '/sv', 
+					path: `/sv/${obj.id}`, 
 					query: {navInfo: JSON.stringify(obj)}
 				})
 
@@ -181,28 +185,13 @@
 			},
 			handlerClick(data) { // 跳转子路由
 				this.$router.push({
-					path: `/sv/sv-video/${data.id}`, 
+					path: `/sv/${this.$route.params.id}/sv-video/${data.id}`, 
 					query: { data: JSON.stringify(data) }
 				})
-			},
-			initAlloyFinger() {
-				let self = this
-				new AlloyFinger(this.$refs.touchDom, {
-	                swipe: function (evt) {
-	                    if (evt.direction === 'Right') {
-	                        self.$router.push({
-								path: `/`
-							})
-		                }
-	                }
-	            })
 			}
 		},
-		created() {
-			this.preTagInfo = ''
-		},
 		mounted() { // '1'表示第一个tag
-			initData('1').then((ret) => {
+			initData(this.$route.params.id).then((ret) => {
 				this.arrTag = ret
 				this.$nextTick(() => {
 					this.initHeaderScroll()
@@ -260,7 +249,7 @@
 		width: 100%;
 		height: 100%;
 		overflow: hidden;
-		transition: all .3s;
+		transition: all .6s;
 	}
 
 	.sv-main{

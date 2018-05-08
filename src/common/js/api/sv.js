@@ -66,20 +66,20 @@ function getStaticTag() {
 
 
 export function initData(dirId) {
-	return getServerData(dirId).then((ret) => {
+	/*return getServerData(dirId).then((ret) => {
 		serverData = ret.data
 		return ret.arrTag
 	}).catch((e) => {
 		serverData = getStaticData()
 		return getStaticTag()
-	})
+	})*/
 
-	/*serverData = getStaticData()
+	serverData = getStaticData()
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			return resolve(getStaticTag())
 		}, 0)
-	})*/
+	})
 }
 
 export function getData(num) {

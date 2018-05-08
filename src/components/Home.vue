@@ -8,7 +8,7 @@
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
                   <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/youliao" tag="li">有料短视频</router-link>
-                  <router-link to="/sv" tag="li">视频</router-link>
+                  <router-link to="/sv/1" tag="li">视频</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
                   <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>

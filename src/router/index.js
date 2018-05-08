@@ -40,7 +40,7 @@ export default new Router({
             ]
         },
         {
-            path: '/sv',
+            path: '/sv/:id',
             name: 'sv',
             component: Sv,
             children: [
