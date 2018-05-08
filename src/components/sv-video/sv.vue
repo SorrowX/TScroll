@@ -116,6 +116,7 @@
 		        	(queryInfo && queryInfo.hasOwnProperty('id'))
 		        ) {
 		        	this.wrapperDomOpacity = 0
+		            this.loadTip = queryInfo.tag
         	    	this.$refs.tScrollComp.clearListContainerDom(() => {
         	    		;((async function() {
         	    			await initData(queryInfo.id)

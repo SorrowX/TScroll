@@ -45,7 +45,7 @@ export default new Router({
             component: Sv,
             children: [
                 {
-                  path: 'sv-video/:id',
+                  path: 'sv-video/:key',
                   component: SvVideo
                 }
             ]

@@ -17,7 +17,7 @@ function getServerData(dirId) {
 	}
 	let dir = map[dirId] ? map[dirId] : 'love'
     return getMediaInfo({
-	    dir: `C:\/Code\/Code\/Vue\/cli\/TScroll\/file-server\/public\/media\/fine-quality\/${dir}`,
+	    dir: `C:\/Code\/Code\/github\/TScroll\/file-server\/public\/media\/fine-quality\/${dir}`,
 	    type: 'jpg',
 	    frame: 50,
 	    thumbFolderName: 'jpg',
