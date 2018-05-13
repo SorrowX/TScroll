@@ -2,6 +2,7 @@ import axios from 'axios'
 
 let key = 0
 let serverData = getStaticData()
+let dataMap = {}
 
 function getMediaInfo(options) {
 	let {dir, type, frame, size, thumbFolderName, forceUpdate, page, num} = options
@@ -65,26 +66,27 @@ function getStaticTag() {
 	})
 }
 
-
 export function initData(dirId) {
+	if (dataMap[dirId]) {
+		return Promise.resolve(dataMap[dirId]['arrTag'])
+	}
 	return getServerData(dirId).then((ret) => {
-		serverData = ret.data
+		dataMap[dirId] = serverData = ret.data
+		dataMap['arrTag'] = ret.arrTag
 		return ret.arrTag
 	}).catch((e) => {
 		serverData = getStaticData()
 		return getStaticTag()
 	})
-
-	/*serverData = getStaticData()
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			return resolve(getStaticTag())
-		}, 0)
-	})*/
 }
 
-export function getData(num) {
+export function getHeaderInfo(dirId) {
+	return initData(dirId)
+}
+
+export function getData(tagId, num) {
 	return new Promise((resolve, reject) => {
+		let serverData = dataMap[String(tagId)] || []
 		setTimeout(() => {
 			let len = num > serverData.length ? serverData.length : num
 			if (len > 0) {

@@ -8,6 +8,8 @@ import YouLiaoVideo from '@/components/youliao/youliao-video'
 import Sv from '@/components/sv-video/sv'
 import SvVideo from '@/components/sv-video/sv-video'
 import SvList from '@/components/sv-video/sv-list'
+import MyVideo from '@/components/my-video/my-video'
+import MyVideoDetails from '@/components/my-video/my-video-details'
 
 Vue.use(Router)
 
@@ -58,6 +60,17 @@ export default new Router({
                 {
                   path: 'sv-video/:id',
                   component: SvVideo
+                }
+            ]
+        },
+        {
+            path: '/my-video/:id',
+            name:'my-video',
+            component: MyVideo,
+            children: [
+                {
+                    path: 'my-video-details',
+                    component: MyVideoDetails
                 }
             ]
         }
