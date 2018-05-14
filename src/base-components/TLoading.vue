@@ -46,7 +46,7 @@
 		left: 0;
 		right: 0;
 		margin: auto;
-        transform: all .3s;
+        transition: all .3s;
 	}
 	.t-loading {
         width: 50px;
@@ -64,10 +64,9 @@
         height: 100%;
         border-radius: 3px;
         background: lightgreen;
-        -webkit-animation: load 1s ease infinite;
 		animation: load 1s ease infinite;
     }
-    @-webkit-keyframes load {
+    @keyframes load {
         0%,100%{
             height: 40px;
             background: lightgreen;
@@ -79,20 +78,15 @@
         }
     }
     .t-loading span:nth-child(2) {
-        -webkit-animation-delay:0.2s;
-		animation-delay:0.2s;
+		animation-delay: 0.2s;
     }
     .t-loading span:nth-child(3) {
-        -webkit-animation-delay:0.4s;
-		animation-delay:0.4s;
+		animation-delay: 0.4s;
     }
     .t-loading span:nth-child(4) {
-        -webkit-animation-delay:0.6s;
-		animation-delay:0.6s;
+		animation-delay: 0.6s;
     }
     .t-loading span:nth-child(5) {
-        -webkit-animation-delay:0.8s;
-		animation-delay:0.8s;
+		animation-delay: 0.8s;
     }
-
 </style>
