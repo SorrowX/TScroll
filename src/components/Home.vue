@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-      <t-scroll 
+      <t-scroll-x 
           :simpleScroll="simpleScroll"
       >
           <template>
@@ -49,23 +49,23 @@
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
               </ul>
           </template>
-      </t-scroll>
+      </t-scroll-x>
       <router-view></router-view>
   </div>
 </template>
 
 <script>
-    import TScroll from '@/base-components/TScroll.vue'
+    import TScrollX from '@/base-components/TScrollX.vue'
     export default {
         name: 'Home',
-        components: { TScroll },
+        components: { TScrollX },
         data () {
             return {
                 simpleScroll: '',
             }
         },
         mounted() {
-            this.simpleScroll = 'simple'
+            this.simpleScroll = 'translateY'
         }
     }
 </script>

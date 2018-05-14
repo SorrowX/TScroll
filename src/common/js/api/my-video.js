@@ -75,7 +75,7 @@ export function initData(dirId) {
 		dataMap['arrTag'] = ret.arrTag
 		return ret.arrTag
 	}).catch((e) => {
-		serverData = getStaticData()
+		dataMap[dirId] = serverData = getStaticData()
 		return getStaticTag()
 	})
 }

@@ -103,7 +103,7 @@
                 	this.initContainerDataByTagId(String(index))
                 }
 			},
-			handlerClickListItem(data) { // 跳转子路由
+			handlerClickListItem(data) { // 处理跳转子路由
 				this.$router.push({
 					path: `/my-video/${this.$route.params.id}/my-video-details`, 
 					query: { data: JSON.stringify(data) }
@@ -111,7 +111,7 @@
 			},
 			initSlide() {
 				let self = this
-				let length = 9
+				let length = this.videoContentList.length
 				new AlloyFinger(this.$refs.touchDom, {
 	                swipe: function (evt) {
 	                	let v = Math.abs(self.containerTranslateX)
@@ -150,7 +150,7 @@
 			},
 			isInitContainerData(tagId) {
 				let comp = this.$refs.arrVideoComp[Number(tagId) - 1]
-				if (comp.$el.children[0].children[0].children.length > 0) {
+				if (comp.$refs['tscroll-list-container']['children']['length'] > 0) {
 					return false
 				} else {
 					return true
@@ -162,11 +162,10 @@
 				this.arrTag = this.videoContentList = ret
 				this.containerWidth = ret.length * window.innerWidth
 				this.containerItemWidth = window.innerWidth
-				this.$nextTick(() => {
-					this.$refs.headerComp.initHeaderScroll()
-				})
 				this.loadData()
-			    this.initSlide()
+				this.$nextTick(() => {
+				    this.initSlide()
+				})
 			})
 		}
 	}
@@ -217,6 +216,7 @@
 		transition: all .35s ease-in-out;
 		transform: translate3d(0, 0, 0);
 		-webkit-backface-visibility: hidden;
+		top: 0.026667rem
 	}
 
 	.container-item {
