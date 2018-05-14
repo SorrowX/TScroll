@@ -221,7 +221,7 @@
 	            this.allData[allDataLen].translateX = arr[0].__translateX__ = this.currentWidth
 	            this.allData[allDataLen].dom = arr[0]
 	            for (i = 1; i < len; i++) {
-	                width = parseInt(window.getComputedStyle(arr[i - 1], null).width)
+	                width = parseInt(window.getComputedStyle(arr[i - 1], null)['width'])
 	                this.currentWidth += width
 	                this.setTranslateX(arr[i], this.currentWidth)
 	                this.allData[i + allDataLen].translateX = arr[i].__translateX__ = this.currentWidth

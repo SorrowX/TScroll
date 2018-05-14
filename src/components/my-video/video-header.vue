@@ -80,11 +80,14 @@
 	}
 
 	.li-tag-class {
+		box-sizing: border-box;
 		color: #666;
 		font-size: 17px;
 		line-height: 0.586667rem;
-		/*margin: 0 0.173333rem 0 0.146667rem;*/
-		width: 0.773333rem;
+		padding: 0 0.173333rem 0 0.146667rem;
+		/*width: 0.773333rem;*/
+		/*width: 1.173333rem;*/
+		width: auto;
 		text-align: center;
 		display: inline-block;
 	}
