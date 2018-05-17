@@ -10,7 +10,7 @@
                   <router-link to="/youliao" tag="li">有料短视频</router-link>
                   <router-link to="/sv/1" tag="li">视频</router-link>
                   <router-link :to="{ name: 'my-video', params: { id: 1 } }" tag="li">我的视频</router-link>
-                  <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
+                  <router-link to="/banner" tag="li">轮播</router-link>
                   <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
                   <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>

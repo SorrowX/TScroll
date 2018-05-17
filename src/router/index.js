@@ -10,6 +10,7 @@ import SvVideo from '@/components/sv-video/sv-video'
 import SvList from '@/components/sv-video/sv-list'
 import MyVideo from '@/components/my-video/my-video'
 import MyVideoDetails from '@/components/my-video/my-video-details'
+import Banner from '@/components/banner/banner'
 
 Vue.use(Router)
 
@@ -73,6 +74,10 @@ export default new Router({
                     component: MyVideoDetails
                 }
             ]
+        },
+        {
+            path: '/banner',
+            component: Banner
         }
     ]
 })
