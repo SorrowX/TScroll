@@ -6,6 +6,8 @@ import router from './router'
 import App from './App'
 import VueLazyload from 'vue-lazyload'
 import fastclick from 'fastclick'
+import AlloyFinger from '@/common/js/lib/alloy_finger'
+import AlloyFingerPlugin from '@/plugin/alloy-finger-plugin'
 
 Vue.config.productionTip = false
 
@@ -17,6 +19,7 @@ Vue.use(VueLazyload, {
     // the default is ['scroll', 'wheel', 'mousewheel', 'resize', 'animationend', 'transitionend']
     listenEvents: [ 'transitionend' ]
 })
+Vue.use(AlloyFingerPlugin, { AlloyFinger })
 
 fastclick.attach(document.body)
 

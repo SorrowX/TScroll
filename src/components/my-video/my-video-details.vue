@@ -1,6 +1,6 @@
 <template>
 	<transition name="sv-video-fade">
-		<div class="sv-video-scroll" ref="touchDom">
+		<div class="sv-video-scroll" v-finger:swipe="swipe">
 			<div class="sv-video-mian">
 				<section class="sv-video-mian-media" v-show="obj !== null">
 					<video
@@ -15,8 +15,6 @@
 </template>
 
 <script>
-    import AlloyFinger from '@/common/js/lib/alloy_finger.js'
-
 	export default {
 		name: 'sv-video',
 		data() {
@@ -25,22 +23,14 @@
 			}
 		},
 		methods: {
-			initAlloyFinger() {
-				let self = this
-				new AlloyFinger(this.$refs.touchDom, {
-	                swipe: function (evt) {
-	                    if (evt.direction === 'Right') {
-	                        self.$router.go(-1)
-		                }
-	                }
-	            })
+			swipe(evt) {
+				if (evt.direction === 'Right') {
+                    this.$router.go(-1)
+                }
 			}
 		},
 		mounted() {
 			this.obj = JSON.parse(this.$route.query.data)
-			this.$nextTick(() => {
-				this.initAlloyFinger()
-			})
 		}
 	}
 </script>
