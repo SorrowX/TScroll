@@ -1,8 +1,11 @@
 <template>
 	<transition name="banner-fade">
 		<div class="banner-main">
-			<t-banner></t-banner>
-	    </div>
+			<t-banner
+			    :bannerData="bannerData"
+			    v-bind="tBannerOptions"
+			></t-banner>
+		</div>
 	</transition>
 </template>
 
@@ -14,7 +17,25 @@
 		components: { TBanner },
 		data() {
 			return {
+				bannerData:[
+				    {
+				    	imgUrl: require('../../common/images/common/750x340.png'),
+				    	title: 'hi 1'
+				    },
+				    {
+				    	imgUrl: require('../../common/images/common/750x340.png'),
+				    	title: 'hi 2'
+				    },
+				    {
+				    	imgUrl: require('../../common/images/common/750x340.png'),
+				    	title: 'hi 3'
+				    }
+				],
+				tBannerOptions: {
+					bannerOption: {
 
+					}
+				}
 			}
 		},
 		methods: {
@@ -34,7 +55,7 @@
 
 	.banner-main {
 		max-width: 540px;
-		position: relative;
+		position: fixed;
 		z-index: 20;
 		left: 0;
 		right: 0;

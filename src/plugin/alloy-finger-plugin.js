@@ -66,7 +66,7 @@ let AlloyFingerPlugin = {
 	    let doUnbindEvent = function(elem) {
 	    	let index = getElemCacheIndex(elem)
 
-	    	if (!isNaN(index) && typeof index === 'number') {
+	    	if (index !== -1 && typeof index === 'number') {
 	    		let delArr = CACHE.splice(index, 1)
 	    		if (
 	    			delArr.length &&
