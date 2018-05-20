@@ -29,11 +29,15 @@
 				    {
 				    	imgUrl: require('../../common/images/common/750x340.png'),
 				    	title: 'hi 3'
+				    },
+				    {
+				    	imgUrl: require('../../common/images/common/750x340.png'),
+				    	title: 'hi 4'
 				    }
 				],
 				tBannerOptions: {
 					bannerOption: {
-
+						// ratio: 0.453
 					}
 				}
 			}
@@ -60,6 +64,8 @@
 		left: 0;
 		right: 0;
 		top: 0;
+		bottom: 0;
+		margin: auto;
 		background-color: #fff;
 	}
 </style>
