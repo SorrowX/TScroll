@@ -95,7 +95,6 @@
                 // this.$refs.tScrollComp.scrollTo('bottom')
                 // this.$refs.tScrollComp.scrollTo('top')
                 // this.$refs.tScrollComp.scrollTo(this.$refs.tScrollComp.getAllData()[20].dom)
-                // this.$refs.tScrollComp.scrollTo('top')
                 this.$refs.tScrollComp.scrollTo(50)
 			},
 			change() {

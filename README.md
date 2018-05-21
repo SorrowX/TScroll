@@ -142,6 +142,10 @@ clearListContainerDom 方法: 清空当前列表容器所有的孩子
        4. 水平滚动只是简单的左右滚动,同时scrollTo api同样可以用
        5. 该属性主要用于导航,等水平滚动功能使用。demo详见 '我的视频'中的video-header.vue组件使用姿势
        6. 注: TScroll.vue 组件不含水平滚动
+
+    5月21日:
+       1. simpleScroll demo中下拉刷新数据时,然后上拉会出现列表消失的bug
+       2. 此为TScroll.vue组件的bug, 已修复
 ```
 
 ## demo

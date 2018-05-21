@@ -100,7 +100,7 @@
 			handlerPullData(loadData, isReset) {
 				this.processData(loadData, isReset)
 			    this.$nextTick(() => {
-		    		this.init()
+		    		this.init(isReset)
 			    })
 			},
 			// 处理加载的动态数据, 并且让父组件渲染列表ui
@@ -136,7 +136,7 @@
 				}
 			},
 			// 初始化列表dom,实例化at实例,初始化滚动条
-			init() {
+			init(isReset) {
 				// 初始化
 				this.initOptions()
 				this.initList()
@@ -145,7 +145,9 @@
 		    	// 状态重置
 		        this.loading = false
                 this.preAllDataLength = this.allData.length
-                this.recoveryAtMax()
+                if (isReset) { // 下拉时 回弹恢复
+                	this.recoveryAtMax()
+                }
 			},
 			// 初始化配置选项
 			initOptions() {
@@ -174,11 +176,12 @@
 				this.listContainerDom = this.listContainerDom || this.$parent.$refs['tscroll-list-container'] // 列表父容器dom
 	            this.pullUpDom = this.pullUpDom || this.$parent.$refs['tscroll-pull-up'] // 上拉加载父容器dom
 
-				let arr = this.getRawDom()
+				let arr = this.getRawDom(this)
 	            let allDataLen = this.preAllDataLength
 	            let len = arr.length,
 	                i = 0,
 	                height = 0
+	            if (len === 0) { return }
 	            if (this.pullDownDom) { // 设置下拉dom 的translateY
 	            	this.setTranslateY(this.pullDownDom, -parseInt(window.getComputedStyle(this.pullDownDom, null).height))
 	            }
@@ -200,7 +203,7 @@
 	                this.at.min = this.getMin()
 	            }
 		    },
-		    getRawDom() {
+		    getRawDom(vm) {
 		    	let listDom = this.listContainerDom.children
 		    	let arr = []
 		        Array.prototype.slice.call(listDom, 0).forEach((dom) => {
@@ -211,11 +214,6 @@
 		        return arr
 		    },
 		    setTranslateY(dom,value) {
-		        /*dom.style.transform = 
-		        dom.style.msTransform = 
-		        dom.style.OTransform = 
-		        dom.style.MozTransform = 
-		        dom.style.webkitTransform = "translateY(" + value + "px) translateZ(0)"*/
 		        this.setStylePropForDom(dom, "transform", "translateY(" + value + "px) translateZ(0)")
 		    },
 		    // 实例化at实例
@@ -298,7 +296,11 @@
 	                        item.removed && this.listContainerDom.appendChild(item.dom)
 	                        item.removed = false
 	                    } else {
-	                        if (!item.removed) {
+	                        if (
+	                        	!item.removed && 
+	                        	Object.prototype.toString.call(item.dom) === '[object HTMLLIElement]' &&
+	                        	item.dom.parentNode === this.listContainerDom
+	                        ) {
 	                            this.listContainerDom.removeChild(item.dom)
 	                            item.removed = true
 	                        }
@@ -405,12 +407,13 @@
     	    // 处理下拉相关函数
 		    pullDownLoading() {
 		    	this._pdlg = true
+		    	this.at.maxSpeed = 0.6
 	            this.$emit('pullDownLoading')
 		    },
 		    pullDownEnd() {
-		    	if (this._pdlg) {
+		    	if (this._pdlg && !this._invokePullDownEnd) {
+		    		this._invokePullDownEnd = true
 		    		this.$emit('pullDownEnd')
-		    		this._pdlg = false
 		    		this.at.max = this.scrollOption.pullDownDistance
 		    		this.at.to(this.at.max)
 		    	}
@@ -418,8 +421,10 @@
 		    recoveryAtMax() {
 		    	if (this.at && this._pdlg) {
 					this._pdlg = false
+					this._invokePullDownEnd = false
 					this.at.max = 0
 					this.at.to(0)
+					this.at.maxSpeed = this.scrollOption.maxSpeed
 				}
 		    },
 		    // 处理上拉
@@ -564,8 +569,4 @@
 		}
 	}
 </script>
-
-<style scoped>
-	
-</style>
 
