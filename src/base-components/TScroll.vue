@@ -176,7 +176,7 @@
 				this.listContainerDom = this.listContainerDom || this.$parent.$refs['tscroll-list-container'] // 列表父容器dom
 	            this.pullUpDom = this.pullUpDom || this.$parent.$refs['tscroll-pull-up'] // 上拉加载父容器dom
 
-				let arr = this.getRawDom(this)
+				let arr = this.getRawDom()
 	            let allDataLen = this.preAllDataLength
 	            let len = arr.length,
 	                i = 0,
@@ -203,7 +203,7 @@
 	                this.at.min = this.getMin()
 	            }
 		    },
-		    getRawDom(vm) {
+		    getRawDom() {
 		    	let listDom = this.listContainerDom.children
 		    	let arr = []
 		        Array.prototype.slice.call(listDom, 0).forEach((dom) => {
