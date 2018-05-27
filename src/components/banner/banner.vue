@@ -1,20 +1,20 @@
 <template>
 	<transition name="banner-fade">
 		<div class="banner-main">
-			<t-banner
-			    :bannerData="bannerData"
-			    v-bind="tBannerOptions"
-			></t-banner>
+			<t-carousel
+			    :carousel-data="carouselData"
+			    v-bind="tCarouseOptions"
+			></t-carousel>
 		</div>
 	</transition>
 </template>
 
 <script>
-    import TBanner from '@/base-components/t-banner/TBanner.vue'
+    import TCarousel from '@/base-components/t-carousel/TCarousel.vue'
 
 	export default {
 		name: 'Banner',
-		components: { TBanner },
+		components: { TCarousel },
 		data() {
 			return {
 				bannerData:[
@@ -37,7 +37,30 @@
 				],
 				tBannerOptions: {
 					bannerOption: {
-						// ratio: 0.453
+						ratio: 0.453
+					}
+				},
+				carouselData:[
+				    {
+				    	imgUrl: require('../../common/images/t-carousel/1.jpg'),
+				    	title: 'hi 1'
+				    },
+				    {
+				    	imgUrl: require('../../common/images/t-carousel/2.jpg'),
+				    	title: 'hi 2'
+				    },
+				    {
+				    	imgUrl: require('../../common/images/t-carousel/3.jpg'),
+				    	title: 'hi 3'
+				    },
+				    {
+				    	imgUrl: require('../../common/images/t-carousel/4.jpg'),
+				    	title: 'hi 4'
+				    }
+				],
+				tCarouseOptions: {
+					carouselOption: {
+						ratio: 0.5625
 					}
 				}
 			}
@@ -59,7 +82,7 @@
 
 	.banner-main {
 		max-width: 540px;
-		position: fixed;
+		position: relative;
 		z-index: 20;
 		left: 0;
 		right: 0;
