@@ -65,6 +65,7 @@
 						ratio: 0.5625,
 						height: '100%',
 						showSpot: false,
+						preViewImg: require('../../common/images/common/loading.gif'),
 						infoDivStyle: {
 							'position': 'absolute',
 							'bottom': '0.333333rem',

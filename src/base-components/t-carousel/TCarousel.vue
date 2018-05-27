@@ -66,7 +66,7 @@
                     height: 0, // 如果指定高度则优先使用指定的高度
                     showSpot: true, // 是否显示索引点
                     infoDivStyle: {}, // 控制 div的样式
-                    errorImg: '', // 图片加载失败的图片
+                    errorImg: '', // 图片加载失败的图片  
                     preViewImg: '', // 图片加载前的预显示图片(一般比要想要显示轮播的图片大小 小才能看出效果)
                 }
             }
@@ -120,16 +120,16 @@
             },
             dynamicCalcImgHeight() {
                 let { height } = this.getCarouselWidthAndHeight()
-                this.allImg = this.allImg || this.carouselScrollerDom.children
-                ;[...this.allImg].forEach((li) => {
+                this.allDiv = this.allDiv || this.carouselScrollerDom.children
+                ;[...this.allDiv].forEach((li) => {
                     li.style.height = height + 'px'
                     li.style.width = (100 / this.carouselData.length) + '%'
                 })
             },
             handlerImg() {
-                this.allImg = this.allImg || this.carouselScrollerDom.children
-                ;[...this.allImg].forEach((img) => {
-                    this.doImg.setSrc(img)
+                this.allDiv = this.allDiv || this.carouselScrollerDom.children
+                ;[...this.allDiv].forEach((div) => {
+                    this.doImg.setSrc(div.children[0])
                 })
             },
             getMin() {
@@ -214,8 +214,8 @@
         },
         mounted() {
             this.doImg = handlerImage(
-                require('./loading.gif'), 
-                require('./error.png')
+                this.carouselOption.preViewImg || require('./loading.gif'), 
+                this.carouselOption.errorImg || require('./error.png')
             )
             this.init()
         }
