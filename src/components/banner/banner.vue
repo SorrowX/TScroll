@@ -17,29 +17,6 @@
 		components: { TCarousel },
 		data() {
 			return {
-				bannerData:[
-				    {
-				    	imgUrl: require('../../common/images/common/750x340.png'),
-				    	title: 'hi 1'
-				    },
-				    {
-				    	imgUrl: require('../../common/images/common/750x340.png'),
-				    	title: 'hi 2'
-				    },
-				    {
-				    	imgUrl: require('../../common/images/common/750x340.png'),
-				    	title: 'hi 3'
-				    },
-				    {
-				    	imgUrl: require('../../common/images/common/750x340.png'),
-				    	title: 'hi 4'
-				    }
-				],
-				tBannerOptions: {
-					bannerOption: {
-						ratio: 0.453
-					}
-				},
 				carouselData:[
 				    {
 				    	imgUrl: require('../../common/images/t-carousel/1.jpg'),
@@ -60,7 +37,8 @@
 				],
 				tCarouseOptions: {
 					carouselOption: {
-						ratio: 0.5625
+						ratio: 0.5625,
+						preViewImg: require('../../common/images/t-carousel/timg.gif'),
 					}
 				}
 			}
