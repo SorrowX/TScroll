@@ -24,7 +24,10 @@
 	        </div>
 	    </div>
 
-	    <div :class="{ 'first-loading': isFirstLoading, 'loading': !isFirstLoading }" v-show="renderData.length == 0">
+	    <div 
+            :class="{ 'first-loading': isFirstLoading, 'loading': !isFirstLoading }" 
+            v-show="showLoading"
+        >
 	        <div :class="{ 'loading-content': isFirstLoading }">
 	            <div class="dot"></div>
 	            <div class="dot"></div>
@@ -159,20 +162,27 @@
     			isMobile: navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i),
                 isPad: navigator.userAgent.match(/(iPad)/i),
                 renderData: [],
-                copyWaterfallData: [],
                 waterfallContainerStyle: {},
-                isFirstLoading: true
+                isFirstLoading: true,
+                isEmitLoadData: false
     		}
     	},
         watch: {
             waterfallData(val, oldVal) {
                 if (val.length !== this._preValLength) {
                     this._preValLength = val.length
+                    this.isFirstLoading = false // 第二次及以后的数据来时就不是第一次加载了
                     this.init()
+                } else {
+                    this.isEmitLoadData = false
                 }
             }
         },
         computed: {
+            // 是否显示loading ui
+            showLoading() {
+                return this.renderData.length == 0 || this.isEmitLoadData
+            },
             // 瀑布流单个元素的总宽度
             getWaterfallWidth() {
                 let winWidth = window.innerWidth
@@ -236,6 +246,12 @@
         },
     	methods: {
     		async init() {
+                let ret = this.hasHandlerData(this.waterfallData)
+                if (!ret.has) {
+                    this.isEmitLoadData = false
+                    return
+                }
+
                 let data = await this.normalizedWaterfallData()
                 this.renderData = data.slice(0)
                 await this.$nextTick(() => {})
@@ -253,7 +269,6 @@
                     i = 0
                 for (; i < len; i++) {
                     if (!data[i]['alreadyCalculate']) {
-                        // data[i]['alreadyCalculate'] = true
                         let waterfall = this.setWaterfallPropForDataItem(data[i], i)
                         let imgNaturalInfo = await getImgInfoAndHandlerCallback(waterfall, 
                             this.handlerImgLoadCallBack, this.handlerImgErrorCallBack, this.preloadingImgTimeout)
@@ -263,9 +278,18 @@
                 }
                 return data
             },
+            hasHandlerData(arr) {
+                let ret = arr.filter((obj) => {
+                    return !hasOwn(obj, 'alreadyCalculate')
+                })
+                return {
+                    has: ret.length > 0 ? true : false,
+                    len: ret.length
+                }
+            },
             setWaterfallPropForDataItem(dataItem, idx) {
                 this.$set(dataItem, 'waterfall', {})
-                let props = ['waterfall-container-style', 'waterfall-box-style', 'waterfall-content-style', 'img-style']
+                let props = ['waterfall-box-style', 'waterfall-content-style', 'img-style']
                 props.forEach((prop) => {
                     this.$set(dataItem['waterfall'], prop, {})
                 })
@@ -404,8 +428,8 @@
             },
             checkScroll() {
                 let allBoxs = this.$refs['waterfall-box']
-                if (allBoxs) {
-                    let lastBox = allBoxs[allBoxs.length - 1]
+                let lastBox = allBoxs[allBoxs.length - 1]
+                if (allBoxs && lastBox) {
                     let lastBoxHeight = lastBox.offsetTop + lastBox.offsetHeight / 2
                     let scrollTop = document.body.scrollTop || document.documentElement.scrollTop
                     let viewHeight = document.body.clientHeight || document.documentElement.clientHeight
@@ -415,15 +439,12 @@
     	},
         created() {
             this.aColsHeight = []
-            this.isEmitLoadData = false
             this.getDefaultWaterfallHeight = getRandomArrayItem(this.randomWaterfallHeight)
             this.getImgBackgroundColor = getRandomArrayItem(this.randomBackgroundColor)
             this._preValLength = this.waterfallData.length
-            this.copyWaterfallData = this.waterfallData.slice(0)
-            console.log(44, this.copyWaterfallData)
         },
     	mounted() {
-    		this.init()
+    		// this.init()
             this.listenScrollEvt()
     	}
     }
