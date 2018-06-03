@@ -12,6 +12,8 @@ import MyVideo from '@/components/my-video/my-video'
 import MyVideoDetails from '@/components/my-video/my-video-details'
 import Banner from '@/components/banner/banner'
 import Banner2 from '@/components/banner/banner2'
+import Waterfall from '@/components/waterfall/waterfall'
+import WaterfallVideo from '@/components/waterfall/waterfall-video'
 
 Vue.use(Router)
 
@@ -83,6 +85,17 @@ export default new Router({
         {
             path: '/banner2',
             component: Banner2
+        },
+        {
+            path: '/waterfall',
+            name: '/waterfall',
+            component: Waterfall,
+            children: [
+                {
+                  path: 'waterfall-video/:id',
+                  component: WaterfallVideo
+                }
+            ]
         }
     ]
 })

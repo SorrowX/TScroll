@@ -12,6 +12,7 @@
                   <router-link :to="{ name: 'my-video', params: { id: 1 } }" tag="li">我的视频</router-link>
                   <router-link to="/banner" tag="li">根据高宽比自动计算高度的轮播器</router-link>
                   <router-link to="/banner2" tag="li">指定高度的轮播(图片播放器)</router-link>
+                  <router-link to="/waterfall" tag="li">瀑布流</router-link>
                   <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
                   <router-link to="/simple-tscroll" tag="li">SimpleTscroll</router-link>
                   <router-link to="/xunlei-live" tag="li">迅雷直播</router-link>
