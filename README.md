@@ -151,7 +151,7 @@ clearListContainerDom 方法: 清空当前列表容器所有的孩子
 ## demo
     
 ``` bash
-    效果详见 https://sorrowx.github.io/TScroll/#/
+    TScroll组件的demo 效果详见 https://sorrowx.github.io/TScroll/#/
 
     4月10日:
         新增首页和SimpleTscroll页面
@@ -166,4 +166,60 @@ clearListContainerDom 方法: 清空当前列表容器所有的孩子
         该单页比'视频'单页多了左右滑动时切换到新的tag功能,容器内容数据没有清空,而是一个tag导航对应一个tscroll容器，
         分离了头部和视频内容组件,代码清晰多了
 
+```
+
+
+# TCarousel
+
+> TCarousel.vue 一个轮播组件
+``` bash
+1. 移动端的轮播
+2. 支持图片预加载和加载失败的图片指定,支持插槽编写自定义dom
+3. 基于alloytouch.js和transform.js编写的一个Vue基础组件
+```
+
+## TCarousel.vue 使用姿势
+
+``` bash
+<t-carousel
+    :carousel-data="carouselData"
+    v-bind="tCarouseOptions"
+    @animationEnd="handlerAnimationEnd"
+    @tap="handlerTap"
+>
+    <template>
+        <span class="banner-info">{{ info }}</span>
+    </template>
+</t-carousel>
+```
+
+## TCarousel.vue props详细解释
+
+``` bash
+data() {
+    return {
+      carouselData:[ // 对象数组 轮播数据, 必须含有imgUrl属性,其他随意
+          {
+            imgUrl: require('../../common/images/t-carousel/15.jpg')
+          },
+          {
+            imgUrl: require('../../common/images/t-carousel/5.jpg')
+          }
+      ],
+      tCarouseOptions: {
+          carouselOption: { // 控制轮播的一些选项
+              ratio: 0.5625, // 高宽比 340/750
+              height: '100%', // 如果指定高度则优先使用指定的高度(单位可以为 %, rem, px)
+              showSpot: false, // 是否显示索引点
+              preViewImg: require('../../common/images/t-carousel/timg.gif'), // 图片加载前的预显示图片
+              errorImg: require('../../common/images/t-carousel/error.jpg'), // 图片加载失败的图片  
+              infoDivStyle: { // 控制 div的样式
+                  'position': 'absolute',
+                  'bottom': '0.333333rem',
+                  'right': '0.133333rem'
+              }
+          }
+      }
+    }
+}
 ```

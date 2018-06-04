@@ -109,7 +109,7 @@
                 let width = window.innerWidth
                 let height = this.rem2px(this.carouselOption.height)
                 height = height === 0 ? this.carouselOption.ratio * width : height
-                if (height > 0) {
+                if (this.carouselOption.height !== 0) {
                     this.$refs['carousel-scroller'].style.height = height + 'px'
                 }
                 return { width, height }
